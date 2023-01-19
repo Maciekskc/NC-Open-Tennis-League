@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NC-Open", "NC-Open\NC-Open.csproj", "{D3ECDDDE-95DC-49AE-AE73-9EA3E0961767}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistance", "Persistance\Persistance.csproj", "{AECDAFA5-7ED1-45A4-8FCE-5802162D9468}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{D3ECDDDE-95DC-49AE-AE73-9EA3E0961767}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3ECDDDE-95DC-49AE-AE73-9EA3E0961767}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3ECDDDE-95DC-49AE-AE73-9EA3E0961767}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AECDAFA5-7ED1-45A4-8FCE-5802162D9468}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AECDAFA5-7ED1-45A4-8FCE-5802162D9468}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AECDAFA5-7ED1-45A4-8FCE-5802162D9468}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AECDAFA5-7ED1-45A4-8FCE-5802162D9468}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

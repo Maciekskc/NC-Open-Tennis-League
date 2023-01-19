@@ -1,10 +1,14 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace NC_Open.Data.Migrations
+#nullable disable
+
+namespace Persistance.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    /// <inheritdoc />
+    public partial class InitialCreate : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -26,6 +30,8 @@ namespace NC_Open.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Initials = table.Column<string>(type: "TEXT", nullable: false),
+                    CurrentPosition = table.Column<int>(type: "INTEGER", nullable: false),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -58,7 +64,7 @@ namespace NC_Open.Data.Migrations
                     Description = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
                     CreationTime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Expiration = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Data = table.Column<string>(type: "TEXT", maxLength: 51430, nullable: false)
+                    Data = table.Column<string>(type: "TEXT", maxLength: 50000, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -72,11 +78,11 @@ namespace NC_Open.Data.Migrations
                     Id = table.Column<string>(type: "TEXT", nullable: false),
                     Version = table.Column<int>(type: "INTEGER", nullable: false),
                     Created = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Use = table.Column<string>(type: "TEXT", maxLength: 450, nullable: true),
+                    Use = table.Column<string>(type: "TEXT", nullable: true),
                     Algorithm = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     IsX509Certificate = table.Column<bool>(type: "INTEGER", nullable: false),
                     DataProtected = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Data = table.Column<string>(type: "TEXT", maxLength: 51430, nullable: false)
+                    Data = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -96,7 +102,7 @@ namespace NC_Open.Data.Migrations
                     CreationTime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Expiration = table.Column<DateTime>(type: "TEXT", nullable: true),
                     ConsumedTime = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    Data = table.Column<string>(type: "TEXT", maxLength: 51430, nullable: false)
+                    Data = table.Column<string>(type: "TEXT", maxLength: 50000, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -209,6 +215,85 @@ namespace NC_Open.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Games",
+                columns: table => new
+                {
+                    GameId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ChellengingPlayerId = table.Column<string>(type: "TEXT", nullable: false),
+                    ChellangedPlayerId = table.Column<string>(type: "TEXT", nullable: false),
+                    ChallengeDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    MatchDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    Win = table.Column<bool>(type: "INTEGER", nullable: true),
+                    Walkover = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ChellangingPlayerWonGemsCount = table.Column<int>(type: "INTEGER", nullable: false),
+                    ChellangedPlayerWonGemsCount = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Games", x => x.GameId);
+                    table.ForeignKey(
+                        name: "FK_Games_AspNetUsers_ChellangedPlayerId",
+                        column: x => x.ChellangedPlayerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Games_AspNetUsers_ChellengingPlayerId",
+                        column: x => x.ChellengingPlayerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ServiceMessages",
+                columns: table => new
+                {
+                    MessageId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Content = table.Column<string>(type: "TEXT", nullable: false),
+                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Discriminator = table.Column<string>(type: "TEXT", nullable: false),
+                    GameId = table.Column<Guid>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ServiceMessages", x => x.MessageId);
+                    table.ForeignKey(
+                        name: "FK_ServiceMessages_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "GameId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GeneralClassification",
+                columns: table => new
+                {
+                    LeaguePositionId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    PlayerId = table.Column<string>(type: "TEXT", nullable: false),
+                    Position = table.Column<int>(type: "INTEGER", nullable: false),
+                    DateFrom = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DateTo = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    MatchResultMessageMessageId = table.Column<Guid>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GeneralClassification", x => x.LeaguePositionId);
+                    table.ForeignKey(
+                        name: "FK_GeneralClassification_AspNetUsers_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GeneralClassification_ServiceMessages_MatchResultMessageMessageId",
+                        column: x => x.MatchResultMessageMessageId,
+                        principalTable: "ServiceMessages",
+                        principalColumn: "MessageId");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -258,6 +343,26 @@ namespace NC_Open.Data.Migrations
                 column: "Expiration");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Games_ChellangedPlayerId",
+                table: "Games",
+                column: "ChellangedPlayerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Games_ChellengingPlayerId",
+                table: "Games",
+                column: "ChellengingPlayerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GeneralClassification_MatchResultMessageMessageId",
+                table: "GeneralClassification",
+                column: "MatchResultMessageMessageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GeneralClassification_PlayerId",
+                table: "GeneralClassification",
+                column: "PlayerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Keys_Use",
                 table: "Keys",
                 column: "Use");
@@ -281,8 +386,14 @@ namespace NC_Open.Data.Migrations
                 name: "IX_PersistedGrants_SubjectId_SessionId_Type",
                 table: "PersistedGrants",
                 columns: new[] { "SubjectId", "SessionId", "Type" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServiceMessages_GameId",
+                table: "ServiceMessages",
+                column: "GameId");
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
@@ -304,6 +415,9 @@ namespace NC_Open.Data.Migrations
                 name: "DeviceCodes");
 
             migrationBuilder.DropTable(
+                name: "GeneralClassification");
+
+            migrationBuilder.DropTable(
                 name: "Keys");
 
             migrationBuilder.DropTable(
@@ -311,6 +425,12 @@ namespace NC_Open.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "ServiceMessages");
+
+            migrationBuilder.DropTable(
+                name: "Games");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

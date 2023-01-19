@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
-using NC_Open.Data;
-using NC_Open.Models;
+using Persistance;
+using Persistance.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +49,7 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 app.MapRazorPages();
 
-app.MapFallbackToFile("index.html");;
+app.MapFallbackToFile("index.html");
+;
 
 app.Run();
