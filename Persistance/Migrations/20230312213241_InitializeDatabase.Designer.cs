@@ -12,7 +12,7 @@ using Persistance;
 namespace Persistance.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230219184806_Initialize Database")]
+    [Migration("20230312213241_InitializeDatabase")]
     partial class InitializeDatabase
     {
         /// <inheritdoc />
@@ -24,176 +24,6 @@ namespace Persistance.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Data.Models.ApplicationUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CurrentPosition")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Initials")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("Data.Models.Game", b =>
-                {
-                    b.Property<Guid>("GameId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("ChallengeDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ChellangedPlayerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("ChellangedPlayerWonGemsCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ChellangingPlayerWonGemsCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ChellengingPlayerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("MatchDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Walkover")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("Win")
-                        .HasColumnType("bit");
-
-                    b.HasKey("GameId");
-
-                    b.HasIndex("ChellangedPlayerId");
-
-                    b.HasIndex("ChellengingPlayerId");
-
-                    b.ToTable("Games");
-                });
-
-            modelBuilder.Entity("Data.Models.LeaguePositions", b =>
-                {
-                    b.Property<Guid>("LeaguePositionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DateFrom")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateTo")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("MatchResultMessageMessageId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("PlayerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Position")
-                        .HasColumnType("int");
-
-                    b.HasKey("LeaguePositionId");
-
-                    b.HasIndex("MatchResultMessageMessageId");
-
-                    b.HasIndex("PlayerId");
-
-                    b.ToTable("GeneralClassification");
-                });
-
-            modelBuilder.Entity("Data.Models.ServiceMessage", b =>
-                {
-                    b.Property<Guid>("MessageId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("MessageId");
-
-                    b.ToTable("ServiceMessages");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("ServiceMessage");
-
-                    b.UseTphMappingStrategy();
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -332,9 +162,194 @@ namespace Persistance.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Data.Models.MatchResultMessage", b =>
+            modelBuilder.Entity("Persistance.Models.ApplicationUser", b =>
                 {
-                    b.HasBaseType("Data.Models.ServiceMessage");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Persistance.Models.Game", b =>
+                {
+                    b.Property<Guid>("GameId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ChallengeDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ChellangedPlayerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ChellangedPlayerWonGemsCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ChellangingPlayerWonGemsCount")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ChellengingPlayerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("MatchDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Walkover")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("Win")
+                        .HasColumnType("bit");
+
+                    b.HasKey("GameId");
+
+                    b.HasIndex("ChellangedPlayerId");
+
+                    b.HasIndex("ChellengingPlayerId");
+
+                    b.ToTable("Games");
+                });
+
+            modelBuilder.Entity("Persistance.Models.LeaguePositions", b =>
+                {
+                    b.Property<Guid>("LeaguePositionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateFrom")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateTo")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("MatchResultMessageMessageId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PlayerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Position")
+                        .HasColumnType("int");
+
+                    b.HasKey("LeaguePositionId");
+
+                    b.HasIndex("MatchResultMessageMessageId");
+
+                    b.HasIndex("PlayerId");
+
+                    b.ToTable("GeneralClassification");
+                });
+
+            modelBuilder.Entity("Persistance.Models.ServiceMessage", b =>
+                {
+                    b.Property<Guid>("MessageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MessageId");
+
+                    b.ToTable("ServiceMessages");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("ServiceMessage");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("Persistance.Models.TennisPlayer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CurrentPosition")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Initials")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
+
+                    b.ToTable("Players");
+                });
+
+            modelBuilder.Entity("Persistance.Models.MatchResultMessage", b =>
+                {
+                    b.HasBaseType("Persistance.Models.ServiceMessage");
 
                     b.Property<Guid>("GameId")
                         .HasColumnType("uniqueidentifier");
@@ -342,40 +357,6 @@ namespace Persistance.Migrations
                     b.HasIndex("GameId");
 
                     b.HasDiscriminator().HasValue("MatchResultMessage");
-                });
-
-            modelBuilder.Entity("Data.Models.Game", b =>
-                {
-                    b.HasOne("Data.Models.ApplicationUser", "ChellangedPlayer")
-                        .WithMany("ChellangedGames")
-                        .HasForeignKey("ChellangedPlayerId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Data.Models.ApplicationUser", "ChellengingPlayer")
-                        .WithMany("ChellengingGames")
-                        .HasForeignKey("ChellengingPlayerId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("ChellangedPlayer");
-
-                    b.Navigation("ChellengingPlayer");
-                });
-
-            modelBuilder.Entity("Data.Models.LeaguePositions", b =>
-                {
-                    b.HasOne("Data.Models.MatchResultMessage", null)
-                        .WithMany("RelatedPositionUpdates")
-                        .HasForeignKey("MatchResultMessageMessageId");
-
-                    b.HasOne("Data.Models.ApplicationUser", "Player")
-                        .WithMany("Positions")
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Player");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -389,7 +370,7 @@ namespace Persistance.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Data.Models.ApplicationUser", null)
+                    b.HasOne("Persistance.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -398,7 +379,7 @@ namespace Persistance.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Data.Models.ApplicationUser", null)
+                    b.HasOne("Persistance.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -413,7 +394,7 @@ namespace Persistance.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Data.Models.ApplicationUser", null)
+                    b.HasOne("Persistance.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -422,16 +403,60 @@ namespace Persistance.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Data.Models.ApplicationUser", null)
+                    b.HasOne("Persistance.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Data.Models.MatchResultMessage", b =>
+            modelBuilder.Entity("Persistance.Models.Game", b =>
                 {
-                    b.HasOne("Data.Models.Game", "Game")
+                    b.HasOne("Persistance.Models.TennisPlayer", "ChellangedPlayer")
+                        .WithMany("ChellangedGames")
+                        .HasForeignKey("ChellangedPlayerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Persistance.Models.TennisPlayer", "ChellengingPlayer")
+                        .WithMany("ChellengingGames")
+                        .HasForeignKey("ChellengingPlayerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("ChellangedPlayer");
+
+                    b.Navigation("ChellengingPlayer");
+                });
+
+            modelBuilder.Entity("Persistance.Models.LeaguePositions", b =>
+                {
+                    b.HasOne("Persistance.Models.MatchResultMessage", null)
+                        .WithMany("RelatedPositionUpdates")
+                        .HasForeignKey("MatchResultMessageMessageId");
+
+                    b.HasOne("Persistance.Models.TennisPlayer", "Player")
+                        .WithMany("Positions")
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Player");
+                });
+
+            modelBuilder.Entity("Persistance.Models.TennisPlayer", b =>
+                {
+                    b.HasOne("Persistance.Models.ApplicationUser", "User")
+                        .WithOne("Player")
+                        .HasForeignKey("Persistance.Models.TennisPlayer", "UserId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Persistance.Models.MatchResultMessage", b =>
+                {
+                    b.HasOne("Persistance.Models.Game", "Game")
                         .WithMany()
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -440,7 +465,12 @@ namespace Persistance.Migrations
                     b.Navigation("Game");
                 });
 
-            modelBuilder.Entity("Data.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Persistance.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Player");
+                });
+
+            modelBuilder.Entity("Persistance.Models.TennisPlayer", b =>
                 {
                     b.Navigation("ChellangedGames");
 
@@ -449,7 +479,7 @@ namespace Persistance.Migrations
                     b.Navigation("Positions");
                 });
 
-            modelBuilder.Entity("Data.Models.MatchResultMessage", b =>
+            modelBuilder.Entity("Persistance.Models.MatchResultMessage", b =>
                 {
                     b.Navigation("RelatedPositionUpdates");
                 });

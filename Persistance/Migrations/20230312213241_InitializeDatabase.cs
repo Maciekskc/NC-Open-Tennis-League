@@ -30,8 +30,6 @@ namespace Persistance.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Initials = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CurrentPosition = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -159,12 +157,31 @@ namespace Persistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Players",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Initials = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CurrentPosition = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Players", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Players_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Games",
                 columns: table => new
                 {
                     GameId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ChellengingPlayerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ChellangedPlayerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ChellengingPlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ChellangedPlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ChallengeDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     MatchDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Win = table.Column<bool>(type: "bit", nullable: true),
@@ -176,14 +193,14 @@ namespace Persistance.Migrations
                 {
                     table.PrimaryKey("PK_Games", x => x.GameId);
                     table.ForeignKey(
-                        name: "FK_Games_AspNetUsers_ChellangedPlayerId",
+                        name: "FK_Games_Players_ChellangedPlayerId",
                         column: x => x.ChellangedPlayerId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "Players",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Games_AspNetUsers_ChellengingPlayerId",
+                        name: "FK_Games_Players_ChellengingPlayerId",
                         column: x => x.ChellengingPlayerId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "Players",
                         principalColumn: "Id");
                 });
 
@@ -213,7 +230,7 @@ namespace Persistance.Migrations
                 columns: table => new
                 {
                     LeaguePositionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PlayerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Position = table.Column<int>(type: "int", nullable: false),
                     DateFrom = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateTo = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -223,9 +240,9 @@ namespace Persistance.Migrations
                 {
                     table.PrimaryKey("PK_GeneralClassification", x => x.LeaguePositionId);
                     table.ForeignKey(
-                        name: "FK_GeneralClassification_AspNetUsers_PlayerId",
+                        name: "FK_GeneralClassification_Players_PlayerId",
                         column: x => x.PlayerId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "Players",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -295,6 +312,13 @@ namespace Persistance.Migrations
                 column: "PlayerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Players_UserId",
+                table: "Players",
+                column: "UserId",
+                unique: true,
+                filter: "[UserId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ServiceMessages_GameId",
                 table: "ServiceMessages",
                 column: "GameId");
@@ -329,6 +353,9 @@ namespace Persistance.Migrations
 
             migrationBuilder.DropTable(
                 name: "Games");
+
+            migrationBuilder.DropTable(
+                name: "Players");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

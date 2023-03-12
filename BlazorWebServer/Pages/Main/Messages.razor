@@ -1,0 +1,32 @@
+﻿@using Application.DTOs.Message;
+
+<ul class="list-group">
+    @foreach (var message in MessageList)
+    {
+        <li class="list-group-item">
+            <div>
+                <p>@message.Date.ToString()</p>
+                <div>@message.Content</div>
+            </div>
+        </li>
+    }
+</ul>
+
+@code {
+    [Parameter]
+    public List<RankingUpdateMessage> MessageList { get; set; }
+
+    [Parameter]
+    public EventCallback<List<RankingUpdateMessage>> MessageListChanged { get; set; }
+
+    private async Task OnMyPropertyChanged()
+    {
+        await MessageListChanged.InvokeAsync(MessageList);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await MessageListChanged.InvokeAsync(MessageList);
+    }
+}

@@ -1,11 +1,12 @@
-﻿using Data.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Persistance.Models;
 
 namespace Persistance
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
+    { 
+        public DbSet<TennisPlayer> Players { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<LeaguePositions> GeneralClassification { get; set; }
         public DbSet<ServiceMessage> ServiceMessages { get; set; }
@@ -22,7 +23,7 @@ namespace Persistance
 
 
             //Config PK
-            builder.Entity<ApplicationUser>()
+            builder.Entity<TennisPlayer>()
                 .HasKey(x => x.Id);
             builder.Entity<Game>()
                 .HasKey(x => x.GameId);
@@ -38,7 +39,7 @@ namespace Persistance
                 .HasForeignKey(g => g.ChellangedPlayerId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Entity<Game>()
+            builder.Entity<Game>()                
                 .HasOne(g => g.ChellengingPlayer)
                 .WithMany(p => p.ChellengingGames)
                 .HasForeignKey(g => g.ChellengingPlayerId)
@@ -53,6 +54,12 @@ namespace Persistance
                 .HasOne(g => g.Game)
                 .WithMany()
                 .HasForeignKey(x => x.GameId);
+
+            builder.Entity<ApplicationUser>()
+                .HasOne(u => u.Player)
+                .WithOne(p => p.User)
+                .HasForeignKey<TennisPlayer>(p=>p.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

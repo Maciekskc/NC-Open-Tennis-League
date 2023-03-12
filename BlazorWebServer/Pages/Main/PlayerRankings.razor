@@ -1,0 +1,42 @@
+﻿@using Application.DTOs.Ranking;
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Position</th>
+            <th>Inititials</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var player in PlayerList)
+        {
+            <tr>
+                <td>@player.Position</td>
+                <td>@player.Inititials</td>
+                <td>
+                    -
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    public List<RankingRecord> PlayerList { get; set; }
+
+    [Parameter]
+    public EventCallback<List<RankingRecord>> PlayerListChanged { get; set; }
+
+    private async Task OnMyPropertyChanged()
+    {
+        await PlayerListChanged.InvokeAsync(PlayerList);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await PlayerListChanged.InvokeAsync(PlayerList);
+    }
+}

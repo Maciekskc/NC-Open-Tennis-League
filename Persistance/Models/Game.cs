@@ -6,12 +6,12 @@ public record class Game
 {
     public Guid GameId { get; } = Guid.NewGuid();
     
-    public string ChellengingPlayerId { get; init; }
+    public Guid ChellengingPlayerId { get; init; }
 
-    public ApplicationUser ChellengingPlayer { get; init; }
+    public TennisPlayer ChellengingPlayer { get; init; }
 
-    public string ChellangedPlayerId { get; init; }
-    public ApplicationUser ChellangedPlayer { get; init; }
+    public Guid ChellangedPlayerId { get; init; }
+    public TennisPlayer ChellangedPlayer { get; init; }
 
     public DateTime ChallengeDate  { get; set; } = DateTime.Now;
 
