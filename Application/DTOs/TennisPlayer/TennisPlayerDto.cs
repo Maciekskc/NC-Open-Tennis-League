@@ -1,6 +1,6 @@
-﻿namespace Application.DTOs.Ranking;
+﻿namespace Application.DTOs.TennisPlayer;
 
-public class RankingRecord
+public class TennisPlayerDto
 {
     public Guid PlayerId { get; set; }
     public string Initials { get; set; }
