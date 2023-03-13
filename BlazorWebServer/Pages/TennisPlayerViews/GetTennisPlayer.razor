@@ -1,0 +1,43 @@
+﻿@inject ITennisPlayerService TennisPlayerService
+@inject NavigationManager NavigationManager
+
+@page "/players/{PlayerId}"
+@using Application.DTOs.TennisPlayer;
+@using Application.Interfaces;
+
+<h1>Players</h1>
+
+
+@if (TennisPlayer != null)
+{
+    <div>Name: @TennisPlayer.Initials</div>
+    <div>Position: @TennisPlayer.Position</div>
+    <div>To do games</div>
+
+    <button onclick="@(() => @RemovePlayer())" class="btn btn-delete">Delete</button>
+    <button onclick="@(() => NavigationManager.NavigateTo($"/players/{PlayerId}/update",true))" class="btn btn-light">Update</button>
+}
+else
+{
+    <div>Loading...</div>
+}
+
+
+@code {
+    [Parameter]
+    public string PlayerId { get; set; }
+
+    public TennisPlayerDto TennisPlayer { get; set; } = null;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        TennisPlayer = await TennisPlayerService.GetByIdAsync(Guid.Parse(PlayerId));
+        StateHasChanged();
+    }
+
+    private async Task RemovePlayer()
+    {
+        await TennisPlayerService.DeleteAsync(Guid.Parse(PlayerId));
+        NavigationManager.NavigateTo("/", true);
+    }
+}

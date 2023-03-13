@@ -27,7 +27,7 @@ namespace Application.Services
                 ChellengingGames = new List<Game>(),
                 ChellangedGames = new List<Game>(),
                 Positions = new List<LeaguePositions>(),
-                CurrentPosition = 0
+                CurrentPosition = DbContext.Players.Select(p=>p.CurrentPosition).ToArray().Max() + 1,
             };
 
             await DbContext.Players.AddAsync(player);
@@ -36,13 +36,23 @@ namespace Application.Services
             return player;
         }
 
-        public async Task<TennisPlayer> GetByIdAsync(Guid id) => await DbContext.Players.FindAsync(id);
+        public async Task<TennisPlayerDto?> GetByIdAsync(Guid id) { 
+            var player =  await DbContext.Players.FindAsync(id);
+            if (player != null)
+                return new TennisPlayerDto
+                {
+                    PlayerId = player.Id,
+                    Initials = player.Initials,
+                    Position = player.CurrentPosition
+                };
+            return null;
+        }
 
         public async Task<IEnumerable<TennisPlayer>> GetAllAsync() => await DbContext.Players.ToListAsync();
 
         public async Task UpdateAsync(Guid id, TennisPlayerDto playerDto)
         {
-            var player = await GetByIdAsync(id);
+            var player = await DbContext.Players.FindAsync(id);
 
             if (player == null)
             {
@@ -56,7 +66,7 @@ namespace Application.Services
 
         public async Task DeleteAsync(Guid id)
         {
-            var player = await GetByIdAsync(id);
+            var player = await DbContext.Players.FindAsync(id);
 
             if (player == null)
             {
