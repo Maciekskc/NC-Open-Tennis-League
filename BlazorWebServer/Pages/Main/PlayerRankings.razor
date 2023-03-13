@@ -1,4 +1,7 @@
 ﻿@using Application.DTOs.Ranking;
+@using Application.Interfaces;
+@inject ITennisPlayerService TennisPlayerService
+@inject NavigationManager NavigationManager
 
 <table class="table">
     <thead>
@@ -13,14 +16,16 @@
         {
             <tr>
                 <td>@player.Position</td>
-                <td>@player.Inititials</td>
+                <td>@player.Initials</td>
                 <td>
-                    -
+                    <button onclick="@(() => NavigationManager.NavigateTo($"/players/{player.PlayerId}",true))" class="btn btn-info">Check</button>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<button onclick="@(() => NavigationManager.NavigateTo("/create-player",true))" class="btn btn-primary">Add New</button>
 
 @code {
     [Parameter]
