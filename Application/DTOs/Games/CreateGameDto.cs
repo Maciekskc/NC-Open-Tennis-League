@@ -8,9 +8,9 @@ namespace Application.DTOs.Games;
 
 public record CreateGameDto
 {
-    public Guid ChellengingPlayerId { get; init; }
+    public Guid ChallengingPlayerId { get; init; }
 
-    public Guid ChellangedPlayerId { get; init; }
+    public Guid ChallengedPlayerId { get; init; }
 
     public DateTime? ChallengeDate { get; set; } = DateTime.Now;
 

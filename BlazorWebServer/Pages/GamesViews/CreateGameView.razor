@@ -19,27 +19,28 @@
 
     <div class="form-group">
         <label for="challengingPlayerId">Challenging Player:</label>
-        <InputSelect id="challengingPlayerId" class="form-control" @bind-Value="gameDto.ChallengingPlayerId">
+        <select id="challengingPlayerId" class="form-control" @bind="gameDto.ChallengingPlayerId">
             @foreach (var player in players)
             {
                 <option value="@player.PlayerId">@player.Initials</option>
             }
-        </InputSelect>
+        </select>
     </div>
 
     <div class="form-group">
         <label for="challengedPlayerId">Challenged Player:</label>
-        <InputSelect id="challengedPlayerId" class="form-control" @bind-Value="gameDto.ChallengedPlayerId">
+        <select id="challengedPlayerId" class="form-control" @bind="gameDto.ChallengedPlayerId">
             @foreach (var player in players)
             {
                 <option value="@player.PlayerId">@player.Initials</option>
             }
-        </InputSelect>
+        </select>
     </div>
+
 
     <div class="form-group">
         <label for="challengeDate">Challenge Date:</label>
-        <InputDate id="challengeDate" class="form-control" @bind-Value="gameDto.ChallengeDate" />
+        <InputDate id="challengeDate" class="form-control" @bind="gameDto.ChallengeDate" />
         <ValidationMessage For="@(() => gameDto.ChallengeDate)" />
     </div>
 

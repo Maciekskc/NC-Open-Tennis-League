@@ -7,7 +7,7 @@ namespace Application.Interfaces
     {
         Task<TennisPlayer> CreateAsync(TennisPlayerDto playerDto);
         Task<TennisPlayerDto?> GetByIdAsync(Guid id);
-        Task<IEnumerable<TennisPlayer>> GetAllAsync();
+        Task<List<TennisPlayerDto>> GetAllAsync();
         Task UpdateAsync(Guid id, TennisPlayerDto playerDto);
         Task DeleteAsync(Guid id);
     }

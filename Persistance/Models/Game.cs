@@ -6,12 +6,12 @@ public record class Game
 {
     public Guid GameId { get; } = Guid.NewGuid();
     
-    public Guid ChellengingPlayerId { get; init; }
+    public Guid ChallengingPlayerId { get; init; }
 
-    public TennisPlayer ChellengingPlayer { get; init; }
+    public TennisPlayer ChallengingPlayer { get; init; }
 
-    public Guid ChellangedPlayerId { get; init; }
-    public TennisPlayer ChellangedPlayer { get; init; }
+    public Guid ChallengedPlayerId { get; init; }
+    public TennisPlayer ChallengedPlayer { get; init; }
 
     public DateTime ChallengeDate  { get; set; } = DateTime.Now;
 
@@ -25,6 +25,6 @@ public record class Game
     public bool Walkover { get; set; } = false;
 
     //Properties for further development
-    public int ChellangingPlayerWonGemsCount { get; set; } = 0;
-    public int ChellangedPlayerWonGemsCount { get; set; } = 0;
+    public int ChallengingPlayerWonGemsCount { get; set; } = 0;
+    public int ChallengedPlayerWonGemsCount { get; set; } = 0;
 }

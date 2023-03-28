@@ -1,0 +1,21 @@
+﻿@page "/games"
+@using Application.DTOs.Games
+@using Application.Interfaces;
+@using Application.Services;
+@inject IGameService GameService
+
+
+<div class="row">
+    <GamesListView @bind-GamesList=@Games />
+</div>
+
+@code {
+    private List<GameViewDto> Games = new List<GameViewDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetAllGames();
+    }
+
+    private async Task GetAllGames() => Games = await GameService.GetAllAsync();
+}

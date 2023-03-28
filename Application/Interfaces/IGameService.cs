@@ -7,8 +7,8 @@ public interface IGameService
 {
     Task<Game> CreateAsync(CreateGameDto playerDto);
     Task<GameViewDto?> GetByIdAsync(Guid id);
-    Task<IEnumerable<GameViewDto>> GetAllPlayerGamesAsync(Guid PlayerId);
-    Task<IEnumerable<GameViewDto>> GetAllAsync();
+    Task<List<GameViewDto>> GetAllPlayerGamesAsync(Guid PlayerId);
+    Task<List<GameViewDto>> GetAllAsync();
     Task UpdateAsync(Guid id, GameViewDto gameDto);
     Task DeleteAsync(Guid id);
 }

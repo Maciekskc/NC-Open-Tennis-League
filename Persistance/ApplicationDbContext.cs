@@ -34,15 +34,15 @@ namespace Persistance
 
             //Config FK
             builder.Entity<Game>()
-                .HasOne(g => g.ChellangedPlayer)
-                .WithMany(p => p.ChellangedGames)
-                .HasForeignKey(g => g.ChellangedPlayerId)
+                .HasOne(g => g.ChallengedPlayer)
+                .WithMany(p => p.ChallengedGames)
+                .HasForeignKey(g => g.ChallengedPlayerId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Game>()                
-                .HasOne(g => g.ChellengingPlayer)
-                .WithMany(p => p.ChellengingGames)
-                .HasForeignKey(g => g.ChellengingPlayerId)
+                .HasOne(g => g.ChallengingPlayer)
+                .WithMany(p => p.ChallengingGames)
+                .HasForeignKey(g => g.ChallengingPlayerId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<LeaguePositions>()
