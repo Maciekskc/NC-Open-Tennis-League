@@ -12,10 +12,10 @@ insert into GeneralClassification(LeaguePositionId,PlayerId,DateFrom,Position) V
 insert into Games(GameId,
 ChallengeDate,
 MatchDate,
-ChellengingPlayerId,
-ChellangedPlayerId,
-ChellangingPlayerWonGemsCount,
-ChellangedPlayerWonGemsCount,
+ChallengingPlayerId,
+ChallengedPlayerId,
+ChallengingPlayerWonGemsCount,
+ChallengedPlayerWonGemsCount,
 Win,
 Walkover)
 VALUES ('ad6d3540-0928-4cd3-8ab3-c7980ed3332f', '2023-02-18','2023-02-18', '131ff64c-6d01-4210-98a0-e082ad469c7f','06c2f928-e60b-47e3-b1c7-6257c60dfcfe',6,4,1,0);
