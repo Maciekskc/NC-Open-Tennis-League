@@ -8,8 +8,7 @@ namespace Application.DTOs.Games;
 
 public record GameViewDto
 {
-
-    public Guid GameId { get; } = Guid.NewGuid();
+    public Guid GameId { get; set; }
 
     public string ChallengingPlayerName { get; init; }
 

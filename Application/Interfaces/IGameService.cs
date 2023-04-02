@@ -5,7 +5,8 @@ namespace Application.Interfaces;
 
 public interface IGameService
 {
-    Task<Game> CreateAsync(CreateGameDto playerDto);
+    Task<Game> CreateAsync(CreateGameDto gameDto); 
+    Task FinalizeGameAsync(FinalizeGameDto gameDto);
     Task<Game?> GetByIdAsync(Guid id);
     Task<GameViewDto?> GetViewModelByIdAsync(Guid id);
     Task<List<GameViewDto>> GetAllPlayerGamesAsync(Guid PlayerId);

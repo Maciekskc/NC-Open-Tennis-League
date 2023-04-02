@@ -21,6 +21,12 @@
                 <p><strong>Challenging Player Won Gems Count:</strong> @game.ChallengingPlayerWonGemsCount</p>
                 <p><strong>Challenged Player Won Gems Count:</strong> @game.ChallengedPlayerWonGemsCount</p>
             </div>
+            @if(game.Win == null)
+            {
+                <div class="card-footer">
+                    <button onclick="@(() => NavigationManager.NavigateTo($"/finalize-game/{game.GameId}",true))" class="btn btn-warning">Finalize</button>
+                </div>
+            }
         </div>
     }
 </table>
