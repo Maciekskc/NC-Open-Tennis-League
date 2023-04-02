@@ -6,7 +6,8 @@ namespace Application.Interfaces;
 public interface IGameService
 {
     Task<Game> CreateAsync(CreateGameDto playerDto);
-    Task<GameViewDto?> GetByIdAsync(Guid id);
+    Task<Game?> GetByIdAsync(Guid id);
+    Task<GameViewDto?> GetViewModelByIdAsync(Guid id);
     Task<List<GameViewDto>> GetAllPlayerGamesAsync(Guid PlayerId);
     Task<List<GameViewDto>> GetAllAsync();
     Task UpdateAsync(Guid id, GameViewDto gameDto);

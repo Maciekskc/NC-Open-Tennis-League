@@ -4,7 +4,7 @@ namespace Persistance.Models;
 
 public record class Game
 {
-    public Guid GameId { get; } = Guid.NewGuid();
+    public Guid GameId { get; set; } = Guid.NewGuid();
     
     public Guid ChallengingPlayerId { get; init; }
 

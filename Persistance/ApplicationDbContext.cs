@@ -11,6 +11,7 @@ namespace Persistance
         public DbSet<LeaguePositions> GeneralClassification { get; set; }
         public DbSet<ServiceMessage> ServiceMessages { get; set; }
         public DbSet<MatchResultMessage> MatchResultMessages { get; set; }
+        public DbSet<NewChellangeMessage> NewChellangeMessages { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -51,6 +52,11 @@ namespace Persistance
                 .HasForeignKey(g => g.PlayerId);
 
             builder.Entity<MatchResultMessage>()
+                .HasOne(g => g.Game)
+                .WithMany()
+                .HasForeignKey(x => x.GameId);
+
+            builder.Entity<NewChellangeMessage>()
                 .HasOne(g => g.Game)
                 .WithMany()
                 .HasForeignKey(x => x.GameId);

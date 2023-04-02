@@ -16,10 +16,10 @@
 
 <EditForm Model="@gameDto" OnValidSubmit="@CreateGame">
     <DataAnnotationsValidator />
-
     <div class="form-group">
         <label for="challengingPlayerId">Challenging Player:</label>
-        <select id="challengingPlayerId" class="form-control" @bind="gameDto.ChallengingPlayerId">
+        <select name="challengingPlayerId" class="form-control" @bind="gameDto.ChallengingPlayerId">
+            <option value="@Guid.NewGuid()">Select player</option>
             @foreach (var player in players)
             {
                 <option value="@player.PlayerId">@player.Initials</option>
@@ -29,7 +29,8 @@
 
     <div class="form-group">
         <label for="challengedPlayerId">Challenged Player:</label>
-        <select id="challengedPlayerId" class="form-control" @bind="gameDto.ChallengedPlayerId">
+        <select name="challengedPlayerId" class="form-control" @bind="gameDto.ChallengedPlayerId">
+            <option value="@Guid.NewGuid()">Select player</option>
             @foreach (var player in players)
             {
                 <option value="@player.PlayerId">@player.Initials</option>
@@ -37,13 +38,11 @@
         </select>
     </div>
 
-
     <div class="form-group">
         <label for="challengeDate">Challenge Date:</label>
-        <InputDate id="challengeDate" class="form-control" @bind="gameDto.ChallengeDate" />
+        <InputDate id="challengeDate" class="form-control" @bind-Value="gameDto.ChallengeDate" />
         <ValidationMessage For="@(() => gameDto.ChallengeDate)" />
     </div>
-
     <button type="submit" class="btn btn-primary">Create</button>
 </EditForm>
 

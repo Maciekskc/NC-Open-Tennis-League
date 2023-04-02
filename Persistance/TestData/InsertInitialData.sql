@@ -1,5 +1,5 @@
-delete from ServiceMessages;
 delete from GeneralClassification;
+delete from ServiceMessages;
 delete from Games;
 delete from Players;
 
@@ -20,7 +20,7 @@ Win,
 Walkover)
 VALUES ('ad6d3540-0928-4cd3-8ab3-c7980ed3332f', '2023-02-18','2023-02-18', '131ff64c-6d01-4210-98a0-e082ad469c7f','06c2f928-e60b-47e3-b1c7-6257c60dfcfe',6,4,1,0);
 
-
+insert into ServiceMessages(MessageId,Date,Content,GameId,Discriminator) VALUES ('41047131-3191-4a99-862d-8a5d28185383','2023-02-18','MACB from position 2 challenged WINC.\n On 2023-02-18 they will fight for 1 position in clasification. \n Good luck!' ,'ad6d3540-0928-4cd3-8ab3-c7980ed3332f','NewChellangeMessage');
 insert into ServiceMessages(MessageId,Date,Content,GameId,Discriminator) VALUES ('91a8b1eb-f8e3-49f0-8863-d8db9157c5cb','2023-02-18','MACB pokonuje WINC i awansuje na 1 miejsce. WINC spada o jedn¹ pozycje' ,'ad6d3540-0928-4cd3-8ab3-c7980ed3332f','MatchResultMessage');
 
 update Players set CurrentPosition = 2  where Id='06c2f928-e60b-47e3-b1c7-6257c60dfcfe';
