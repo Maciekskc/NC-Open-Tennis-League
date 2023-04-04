@@ -7,6 +7,7 @@ using System;
 using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,8 +25,8 @@ namespace Application.Services
             {
                 Id = Guid.NewGuid(),
                 Initials = playerDto.Initials,
-                ChellengingGames = new List<Game>(),
-                ChellangedGames = new List<Game>(),
+                ChallengingGames = new List<Game>(),
+                ChallengedGames = new List<Game>(),
                 Positions = new List<LeaguePositions>(),
                 CurrentPosition = DbContext.Players.Select(p=>p.CurrentPosition).ToArray().Max() + 1,
             };
@@ -48,7 +49,12 @@ namespace Application.Services
             return null;
         }
 
-        public async Task<IEnumerable<TennisPlayer>> GetAllAsync() => await DbContext.Players.ToListAsync();
+        public async Task<List<TennisPlayerDto>> GetAllAsync() => await DbContext.Players.Select(p => new TennisPlayerDto
+        {
+            PlayerId = p.Id,
+            Initials = p.Initials,
+            Position = p.CurrentPosition
+        }).ToListAsync();
 
         public async Task UpdateAsync(Guid id, TennisPlayerDto playerDto)
         {

@@ -35,6 +35,7 @@ builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuth
 builder.Services.AddScoped<IExampleService, ExampleService>();
 builder.Services.AddScoped<IMessageService, MessageService>();
 builder.Services.AddScoped<IRankingService, RankingService>();
+builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<ITennisPlayerService, TennisPlayerService>();
 
 var app = builder.Build();

@@ -1,0 +1,53 @@
+﻿@using Application.DTOs.Games;
+@using Application.Interfaces;
+@inject IGameService GameService
+@inject NavigationManager NavigationManager
+
+<table class="table">
+
+    @foreach (var game in GamesList)
+    {
+        <div class="card">
+            <div class="card-header">
+                Game Information
+            </div>
+            <div class="card-body">
+                <p><strong>Challenging Player Name:</strong> @game.ChallengingPlayerName</p>
+                <p><strong>Challenged Player Name:</strong> @game.ChallengedPlayerName</p>
+                <p><strong>Challenge Date:</strong> @game.ChallengeDate.ToString("dd/MM/yyyy HH:mm:ss")</p>
+                <p><strong>Match Date:</strong> @(game.MatchDate.HasValue ? game.MatchDate.Value.ToString("dd/MM/yyyy HH:mm:ss") : "N/A")</p>
+                <p><strong>Win:</strong> @(game.Win.HasValue ? (game.Win.Value ? "Challenging Player" : "Challenged Player") : "N/A")</p>
+                <p><strong>Walkover:</strong> @(game.Walkover.HasValue ? (game.Walkover.Value ? "Yes" : "No") : "N/A")</p>
+                <p><strong>Challenging Player Won Gems Count:</strong> @game.ChallengingPlayerWonGemsCount</p>
+                <p><strong>Challenged Player Won Gems Count:</strong> @game.ChallengedPlayerWonGemsCount</p>
+            </div>
+            @if(game.Win == null)
+            {
+                <div class="card-footer">
+                    <button onclick="@(() => NavigationManager.NavigateTo($"/finalize-game/{game.GameId}",true))" class="btn btn-warning">Finalize</button>
+                </div>
+            }
+        </div>
+    }
+</table>
+
+<button onclick="@(() => NavigationManager.NavigateTo("/create-game",true))" class="btn btn-primary">Add New</button>
+
+@code {
+    [Parameter]
+    public List<GameViewDto> GamesList { get; set; }
+
+    [Parameter]
+    public EventCallback<List<GameViewDto>> GamesListChanged { get; set; }
+
+    private async Task OnMyPropertyChanged()
+    {
+        await GamesListChanged.InvokeAsync(GamesList);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await GamesListChanged.InvokeAsync(GamesList);
+    }
+}

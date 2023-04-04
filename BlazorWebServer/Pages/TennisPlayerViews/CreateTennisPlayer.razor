@@ -33,7 +33,7 @@
             var createdPlayer = await TennisPlayerService.CreateAsync(playerDto);
             errorMessage = null;
             playerDto = new TennisPlayerDto();
-            NavigationManager.NavigateTo("/",true);
+            NavigationManager.NavigateTo("/", true);
         }
         catch (Exception ex)
         {

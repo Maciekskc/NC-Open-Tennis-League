@@ -1,0 +1,74 @@
+﻿<div class="background-gradient">
+    <div class="logo-container">
+        <div class="logo-wrapper">
+            <i class="bi bi-balloon"></i>
+            <div class="logo-text">NC Tennis</div>
+        </div>
+        <div class="logo-buttons">
+            <a href="link1.html">Button 1</a>
+            <a href="link2.html">Button 2</a>
+            <a href="link3.html">Button 3</a>
+            <a href="link4.html">Button 4</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .background-gradient {
+        background: linear-gradient(to bottom, #539165, #F7C04A);
+        height: 100vh;
+    }
+
+    .logo-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    .logo-wrapper {
+        position: relative;
+    }
+
+    .logo {
+        font-size: 6em;
+        color: white;
+    }
+
+    .logo-text {
+        font-size: 2em;
+        font-weight: bold;
+        margin-top: 0.5em;
+        color: white;
+    }
+
+    .logo-buttons {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 1em;
+        display: none;
+        flex-direction: row;
+    }
+
+        .logo-buttons a {
+            display: block;
+            background-color: #fff;
+            color: #000;
+            padding: 0.5em 1em;
+            margin-right: 1em;
+            border-radius: 0.25em;
+            transition: all 0.2s ease;
+        }
+
+            .logo-buttons a:hover {
+                background-color: #000;
+                color: #fff;
+            }
+
+    .logo-wrapper:hover .logo-buttons {
+        display: flex;
+    }
+</style>
