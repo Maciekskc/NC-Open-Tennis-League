@@ -32,7 +32,6 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-builder.Services.AddScoped<IExampleService, ExampleService>();
 builder.Services.AddScoped<IMessageService, MessageService>();
 builder.Services.AddScoped<IRankingService, RankingService>();
 builder.Services.AddScoped<IGameService, GameService>();
