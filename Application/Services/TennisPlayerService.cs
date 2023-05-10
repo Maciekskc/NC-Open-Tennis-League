@@ -21,15 +21,10 @@ namespace Application.Services
 
         public async Task<TennisPlayer> CreateAsync(TennisPlayerDto playerDto)
         {
-            var player = new TennisPlayer
-            {
-                Id = Guid.NewGuid(),
-                Initials = playerDto.Initials,
-                ChallengingGames = new List<Game>(),
-                ChallengedGames = new List<Game>(),
-                Positions = new List<LeaguePositions>(),
-                CurrentPosition = DbContext.Players.Select(p=>p.CurrentPosition).ToArray().Max() + 1,
-            };
+            var player = Mapper.TennisPlayerDtoToTennisPlayer(playerDto);
+
+            player.Id = Guid.NewGuid();
+            player.CurrentPosition = DbContext.Players.Select(p => p.CurrentPosition).ToArray().Max() + 1;
 
             await DbContext.Players.AddAsync(player);
             await DbContext.SaveChangesAsync();
@@ -40,21 +35,11 @@ namespace Application.Services
         public async Task<TennisPlayerDto?> GetByIdAsync(Guid id) { 
             var player =  await DbContext.Players.FindAsync(id);
             if (player != null)
-                return new TennisPlayerDto
-                {
-                    PlayerId = player.Id,
-                    Initials = player.Initials,
-                    Position = player.CurrentPosition
-                };
+                return Mapper.TennisPlayerToTennisPlayerDto(player);
             return null;
         }
 
-        public async Task<List<TennisPlayerDto>> GetAllAsync() => await DbContext.Players.Select(p => new TennisPlayerDto
-        {
-            PlayerId = p.Id,
-            Initials = p.Initials,
-            Position = p.CurrentPosition
-        }).ToListAsync();
+        public async Task<List<TennisPlayerDto>> GetAllAsync() => await DbContext.Players.Select(p => Mapper.TennisPlayerToTennisPlayerDto(p)).ToListAsync();
 
         public async Task UpdateAsync(Guid id, TennisPlayerDto playerDto)
         {

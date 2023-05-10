@@ -15,7 +15,10 @@ public class MessageService : BaseService, IMessageService
     public async Task<List<RankingUpdateMessage>> GetMessages()
     {
         var matchResults = await DbContext.MatchResultMessages.Select(m => Mapper.MatchResultMessageToRankingUpdateMessage(m)).ToListAsync();
-        var matchChellanges = await DbContext.NewChellangeMessages.Where(m => m.GetType() == typeof(NewChellangeMessage)).Select(m => Mapper.NewChellangeMessageToRankingUpdateMessage(m)).ToListAsync();
+        var matchChellanges = await DbContext.NewChellangeMessages
+                                    .Where(m => m.GetType() == typeof(NewChellangeMessage))
+                                    .Select(m => Mapper.NewChellangeMessageToRankingUpdateMessage(m))
+                                    .ToListAsync();
 
         var messages = matchResults.Concat(matchChellanges);
         return SortMassages(messages);

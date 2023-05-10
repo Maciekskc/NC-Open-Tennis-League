@@ -6,7 +6,7 @@ namespace Application.Mappers
 {
     public partial class CustomMaperlyMapper
     {
-        public partial CreateGameDto GameToCreateGameDto(Game game);
+        public partial Game CreateGameDtoToGame(CreateGameDto createGameDto);
 
         public partial Game FinalizeGameDtoToGame(FinalizeGameDto gameDto);
 
