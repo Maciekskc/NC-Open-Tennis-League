@@ -49,18 +49,10 @@ public class GameService : BaseService, IGameService
     }
 
     public async Task<List<GameViewDto>> GetAllAsync() =>
-        await DbContext.Games.Select(game => new GameViewDto
-        {
-            GameId = game.GameId,
-            ChallengingPlayerName = game.ChallengingPlayer.Initials,
-            ChallengedPlayerName = game.ChallengedPlayer.Initials,
-            ChallengeDate = game.ChallengeDate,
-            MatchDate = game.MatchDate,
-            Win = game.Win,
-            Walkover = game.Walkover,
-            ChallengingPlayerWonGemsCount = game.ChallengingPlayerWonGemsCount,
-            ChallengedPlayerWonGemsCount = game.ChallengedPlayerWonGemsCount
-        }).ToListAsync();
+       await DbContext.Games
+        .Include(g => g.ChallengedPlayer)
+        .Include(g => g.ChallengingPlayer)
+        .Select(game => Mapper.GameToGameViewGameDto(game)).ToListAsync();
 
     public async Task<GameViewDto?> GetViewModelByIdAsync(Guid id)
     {
