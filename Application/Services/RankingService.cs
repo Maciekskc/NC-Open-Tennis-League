@@ -13,7 +13,7 @@ public class RankingService : BaseService, IRankingService
 
     public async Task<List<RankingRecord>> GetRanking()
     {
-        var positions = await DbContext.Players.Select(p => new RankingRecord { Initials = p.Initials, PlayerId = p.Id, Position = p.CurrentPosition }).ToListAsync();
+        var positions = await DbContext.Players.Select(p => Mapper.TennisPlayerToRankingRecord(p)).ToListAsync();
         positions.Sort((x, y) => x.Position - y.Position);
         return positions;
     }
