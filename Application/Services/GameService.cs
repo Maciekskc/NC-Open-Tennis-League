@@ -16,14 +16,8 @@ public class GameService : BaseService, IGameService
 
     public async Task<Game> CreateAsync(CreateGameDto gameDto)
     {
-        var game = new Game()
-        {
-            GameId = Guid.NewGuid(),
-            ChallengeDate = gameDto.ChallengeDate,
-            ChallengedPlayerId = gameDto.ChallengedPlayerId,
-            ChallengingPlayerId = gameDto.ChallengingPlayerId,
-            MatchDate = gameDto.MatchDate,
-        };
+        var game = Mapper.CreateGameDtoToGame(gameDto);
+        game.GameId = Guid.NewGuid();
         DbContext.Add(game);
 
         var challengingPlayer = DbContext.Players.FirstOrDefault(p => p.Id == game.ChallengingPlayerId);
@@ -49,30 +43,16 @@ public class GameService : BaseService, IGameService
     }
 
     public async Task<List<GameViewDto>> GetAllAsync() =>
-        await DbContext.Games.Select(game => new GameViewDto
-        {
-            GameId = game.GameId,
-            ChallengingPlayerName = game.ChallengingPlayer.Initials,
-            ChallengedPlayerName = game.ChallengedPlayer.Initials,
-            ChallengeDate = game.ChallengeDate,
-            MatchDate = game.MatchDate,
-            Win = game.Win,
-            Walkover = game.Walkover,
-            ChallengingPlayerWonGemsCount = game.ChallengingPlayerWonGemsCount,
-            ChallengedPlayerWonGemsCount = game.ChallengedPlayerWonGemsCount
-        }).ToListAsync();
+       await DbContext.Games
+        .Include(g => g.ChallengedPlayer)
+        .Include(g => g.ChallengingPlayer)
+        .Select(game => Mapper.GameToGameViewGameDto(game)).ToListAsync();
 
     public async Task<GameViewDto?> GetViewModelByIdAsync(Guid id)
     {
         var game = await DbContext.Games.FindAsync(id);
         if (game != null)
-            return new GameViewDto
-            {
-                ChallengedPlayerName = game.ChallengedPlayer.Initials,
-                ChallengingPlayerName = game.ChallengingPlayer.Initials,
-                ChallengeDate = game.ChallengeDate,
-                MatchDate = game.MatchDate
-            };
+            return Mapper.GameToGameViewGameDto(game);
         return null;
     }
 
