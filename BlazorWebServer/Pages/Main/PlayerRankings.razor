@@ -3,29 +3,33 @@
 @inject ITennisPlayerService TennisPlayerService
 @inject NavigationManager NavigationManager
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Position</th>
-            <th>Inititials</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var player in PlayerList)
-        {
+<div class="m-4">
+    <table class="table ranking-table">
+        <thead>
             <tr>
-                <td>@player.Position</td>
-                <td>@player.Initials</td>
-                <td>
-                    <button onclick="@(() => NavigationManager.NavigateTo($"/players/{player.PlayerId}",true))" class="btn btn-info">Check</button>
-                </td>
+                <th>Position</th>
+                <th>Inititials</th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var player in PlayerList)
+            {
+                <tr>
+                    <td>@player.Position</td>
+                    <td>@player.Initials</td>
+                    <td>
+                        <button onclick="@(() => NavigationManager.NavigateTo($"/players/{player.PlayerId}",true))" class="btn btn-info"><i class="bi bi-person"></i></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button onclick="@(() => NavigationManager.NavigateTo("/create-player",true))" class="btn btn-primary">Add New</button>
+</div>
 
-<button onclick="@(() => NavigationManager.NavigateTo("/create-player",true))" class="btn btn-primary">Add New</button>
+
+
 
 @code {
     [Parameter]

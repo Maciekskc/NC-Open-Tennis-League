@@ -1,20 +1,22 @@
-﻿@inherits LayoutComponentBase
+﻿<!-- MainLayout.razor -->
+@inherits LayoutComponentBase
 
-<PageTitle>BlazorWebServer</PageTitle>
-
-<div class="page">
-    <div class="sidebar">
+<div class="top-bar">
+    <div class="top-bar-left">
         <NavMenu />
     </div>
-
-    <main>
-        <div class="top-row px-4 auth">
-            <LoginDisplay />
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+    <div class="top-bar-center">
+        <div class="navbar-brand" href="">
+            <img src="tennis-rockets.png" alt="NC-League" class="logo-img" />
         </div>
+    </div>
+    <div class="top-bar-right">
+        <LoginDisplay />
+    </div>
+</div>
 
-        <article class="content px-4">
-            @Body
-        </article>
+<div class="page">
+    <main>
+        @Body
     </main>
 </div>

@@ -1,16 +1,18 @@
 ﻿@using Application.DTOs.Message;
 
-<ul class="list-group">
-    @foreach (var message in MessageList)
-    {
-        <li class="list-group-item">
-            <div>
-                <p>@message.Date.ToString()</p>
-                <div>@message.Content</div>
-            </div>
-        </li>
-    }
-</ul>
+<div class="m-4">
+    <ul class="list-group">
+        @foreach (var message in MessageList)
+        {
+            <li class="list-group-item">
+                <div>
+                    <p>@message.Date.ToString()</p>
+                    <div>@message.Content</div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>
 
 @code {
     [Parameter]

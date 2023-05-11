@@ -1,3 +1,22 @@
 ﻿@page "/"
-@using BlazorWebServer.Pages.Main.Partials
-<MainPage />
+
+<div class="background-gradient">
+    <div class="logo-container" @onmouseover="MouseOver">
+        <div class="logo-wrapper">
+            <i class="bi bi-balloon"></i>
+            <div class="logo-text">NC Tennis</div>
+        </div>
+        <div class="logo-buttons">
+            <div href="link1.html">Button 1</div>
+            <a href="link2.html">Button 2</a>
+            <a href="link3.html">Button 3</a>
+            <a href="link4.html">Button 4</a>
+        </div>
+    </div>
+</div>
+
+@code {
+    void MouseOver()
+    {
+    }
+}

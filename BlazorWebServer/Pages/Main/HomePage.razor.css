@@ -1,6 +1,6 @@
 ﻿
 .background-gradient {
-    background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+    background-color: var(--bg-color);
     height: 100vh;
 }
 
@@ -46,6 +46,16 @@
         margin-right: 1em;
         border-radius: 0.25em;
         transition: all 0.2s ease;
+    }
+
+    .logo-buttons div {
+        display: block;
+        background-color: #fff;
+        color: var(--bg-color);
+        border-radius: 0.25em;
+        transition: all 0.2s ease;
+        width: 100px;
+        height: 100px;
     }
 
     .logo-buttons a:hover {
