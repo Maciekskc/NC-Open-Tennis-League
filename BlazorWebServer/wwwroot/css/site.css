@@ -1,14 +1,28 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html {
-    --primary-color: #539165;
+    /*    --primary-color: #539165;
     --secondary-color: #F7C04A;
-    --bg-color: #F8F5E4;
+    --bg-color: #F2E3DB;
+    --font-color: #3F497F;*/
+
+    --primary-color: #263A29;
+    --secondary-color: #41644A;
+    --distinctive-color: #E86A33;
+    --bg-color: #F2E3DB;
     --font-color: #3F497F;
+    --separative-blue: #7C96AB
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
 }
 
 h1:focus {
@@ -73,3 +87,5 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+

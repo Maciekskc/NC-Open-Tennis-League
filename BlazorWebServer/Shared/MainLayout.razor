@@ -2,13 +2,11 @@
 @inherits LayoutComponentBase
 
 <div class="top-bar">
+    <div class="page-logo">
+        <img src="tennis-rocket.png" alt="NC-League" class="logo-img" />
+    </div>
     <div class="top-bar-left">
         <NavMenu />
-    </div>
-    <div class="top-bar-center">
-        <div class="navbar-brand" href="">
-            <img src="tennis-rockets.png" alt="NC-League" class="logo-img" />
-        </div>
     </div>
     <div class="top-bar-right">
         <LoginDisplay />
@@ -16,7 +14,5 @@
 </div>
 
 <div class="page">
-    <main>
-        @Body
-    </main>
+    @Body
 </div>
