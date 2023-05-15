@@ -3,11 +3,11 @@
 @inject IGameService GameService
 @inject NavigationManager NavigationManager
 
-<table class="table">
+<div class="row">
 
     @foreach (var game in GamesList)
     {
-        <div class="card">
+        <div class="card col-md-3 m-3">
             <div class="card-header">
                 Game Information
             </div>
@@ -29,7 +29,7 @@
             }
         </div>
     }
-</table>
+</div>
 
 <button onclick="@(() => NavigationManager.NavigateTo("/create-game",true))" class="btn btn-primary">Add New</button>
 

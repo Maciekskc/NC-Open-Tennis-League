@@ -35,7 +35,7 @@ h1:focus {
 }
 
 a, .btn-link {
-    color: #0071c1;
+    color: var(--distinctive-color);
 }
 
 .btn-primary {
@@ -46,7 +46,7 @@ a, .btn-link {
     .btn-primary:hover {
         color: #fff;
         background-color: var(--secondary-color);
-        border-color: #1861ac;
+        border-color: var(--distinctive-color);
     }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
