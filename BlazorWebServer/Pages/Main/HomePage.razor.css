@@ -21,7 +21,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: solid 1px var(--secondary-color);
+    border: none;
     outline: none;
     cursor: pointer;
     font-size: 20px;
@@ -36,11 +36,23 @@
 }
 
 .btn-main-page {
-    background-color: white;
+    background-color: var(--item-bg-color);
     color: var(--secondary-color);
 }
 
     .btn-main-page:hover {
         border: solid 1px var(--distinctive-color);
         color: var(--distinctive-color);
+    }
+
+/* Media query for mobile screens */
+    @media (max-width: 767px) {
+        .buttons-section {
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            flex-basis: 50%;
+            margin: 5px;
+        }
     }
