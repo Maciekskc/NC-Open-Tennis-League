@@ -21,6 +21,10 @@ html {
     align-items: center;
 }
 
+.page-content{
+    width:100%;
+}
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background-color: var(--bg-color);
@@ -37,11 +41,16 @@ a, .btn-link {
 .btn-primary {
     color: #fff;
     background-color: var(--primary-color);
-    border-color: #1861ac;
+    border-color: var(--primary-color);
 }
+    .btn-primary:hover {
+        color: #fff;
+        background-color: var(--secondary-color);
+        border-color: #1861ac;
+    }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem var(--distinctive-color);
 }
 
 .content {
