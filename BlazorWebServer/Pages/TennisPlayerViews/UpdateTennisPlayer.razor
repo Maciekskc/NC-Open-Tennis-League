@@ -5,21 +5,22 @@
 @using Application.DTOs.TennisPlayer;
 @using Application.Interfaces;
 
-@if (errorMessage != null)
-{
-    <div class="alert alert-danger">@errorMessage</div>
-}
+<div class="page-content mt-5">
+    @if (errorMessage != null)
+    {
+        <div class="alert alert-danger">@errorMessage</div>
+    }
 
-<EditForm Model="@TennisPlayer" OnValidSubmit="@UpdatePlayer">
-    <DataAnnotationsValidator />
-    <div class="form-group">
-        <label for="initials">Initials:</label>
-        <InputText id="initials" class="form-control" @bind-Value="TennisPlayer.Initials" />
-        <ValidationMessage For="@(() => TennisPlayer.Initials)" />
-    </div>
-    <button type="submit" class="btn btn-primary">Update</button>
-</EditForm>
-
+    <EditForm Model="@TennisPlayer" OnValidSubmit="@UpdatePlayer">
+        <DataAnnotationsValidator />
+        <div class="form-group">
+            <label for="initials">Initials:</label>
+            <InputText id="initials" class="form-control" @bind-Value="TennisPlayer.Initials" />
+            <ValidationMessage For="@(() => TennisPlayer.Initials)" />
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </EditForm>
+</div>
 @code {
 
     [Parameter]
