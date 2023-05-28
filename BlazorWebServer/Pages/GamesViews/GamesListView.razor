@@ -1,37 +1,52 @@
 ﻿@using Application.DTOs.Games;
 @using Application.Interfaces;
+@using System.Globalization;
 @inject IGameService GameService
 @inject NavigationManager NavigationManager
 
-<div class="page-content mt-5 row">
-
+<div class="row">
     @foreach (var game in GamesList)
     {
-        <div class="card col-md-3 m-3">
-            <div class="card-header">
-                Game Information
+        <div class="col-md-3 game-card">
+            @*<p><strong>Challenging Player Name:</strong> @game.ChallengingPlayerName</p>
+            <p><strong>Challenged Player Name:</strong> @game.ChallengedPlayerName</p>
+            <p><strong>Challenge Date:</strong> @game.ChallengeDate.ToString("dd/MM/yyyy HH:mm:ss")</p>
+            <p><strong>Match Date:</strong> @(game.MatchDate.HasValue ? game.MatchDate.Value.ToString("dd/MM/yyyy HH:mm:ss") : "N/A")</p>
+            <p><strong>Win:</strong> @(game.Win.HasValue ? (game.Win.Value ? "Challenging Player" : "Challenged Player") : "N/A")</p>
+            <p><strong>Walkover:</strong> @(game.Walkover.HasValue ? (game.Walkover.Value ? "Yes" : "No") : "N/A")</p>
+            <p><strong>Challenging Player Won Gems Count:</strong> @game.ChallengingPlayerWonGemsCount</p>
+            <p><strong>Challenged Player Won Gems Count:</strong> @game.ChallengedPlayerWonGemsCount</p>*@
+            <div class="game-card-top-section">
+                @GameCardHeaderTextGenerator(game)
             </div>
-            <div class="card-body">
-                <p><strong>Challenging Player Name:</strong> @game.ChallengingPlayerName</p>
-                <p><strong>Challenged Player Name:</strong> @game.ChallengedPlayerName</p>
-                <p><strong>Challenge Date:</strong> @game.ChallengeDate.ToString("dd/MM/yyyy HH:mm:ss")</p>
-                <p><strong>Match Date:</strong> @(game.MatchDate.HasValue ? game.MatchDate.Value.ToString("dd/MM/yyyy HH:mm:ss") : "N/A")</p>
-                <p><strong>Win:</strong> @(game.Win.HasValue ? (game.Win.Value ? "Challenging Player" : "Challenged Player") : "N/A")</p>
-                <p><strong>Walkover:</strong> @(game.Walkover.HasValue ? (game.Walkover.Value ? "Yes" : "No") : "N/A")</p>
-                <p><strong>Challenging Player Won Gems Count:</strong> @game.ChallengingPlayerWonGemsCount</p>
-                <p><strong>Challenged Player Won Gems Count:</strong> @game.ChallengedPlayerWonGemsCount</p>
+            <div class="game-card-main-section">
+                    
+                <div>
+                    <i class="bi bi-person-fill user-icon @IsChallangeWonStylePicker(game.Win)"></i>
+                    <p>@game.ChallengingPlayerName</p>
+                </div>
+
+                <div class="vs-text">
+                    @GetMatchResultText(game)
+                </div>
+
+                <div>
+                    <i class="bi bi-person-fill user-icon @IsChallangeWonStylePicker(!game.Win)"></i>
+                    <p>@game.ChallengedPlayerName</p>
+                </div>
             </div>
-            @if(game.Win == null)
+
+            @if (game.Win == null)
             {
-                <div class="card-footer">
+                <div class="game-card-actions-section">
                     <button onclick="@(() => NavigationManager.NavigateTo($"/finalize-game/{game.GameId}",true))" class="btn btn-warning">Finalize</button>
                 </div>
             }
         </div>
     }
-</div>
 
-<button onclick="@(() => NavigationManager.NavigateTo("/create-game",true))" class="btn btn-primary">Add New</button>
+    <button onclick="@(() => NavigationManager.NavigateTo("/create-game",true))" class="btn btn-primary">Add New</button>
+</div>
 
 @code {
     [Parameter]
@@ -50,4 +65,19 @@
         await base.OnInitializedAsync();
         await GamesListChanged.InvokeAsync(GamesList);
     }
+
+    private string GameCardHeaderTextGenerator(GameViewDto game) =>
+        game.MatchDate != null ? $"Match date: {FormatDate(game.MatchDate.Value)}" : $"Challange date: {FormatDate(game.ChallengeDate)}";
+
+    private string IsChallangeWonStylePicker(bool? gameResult)
+    {
+        if (gameResult == null) return "";
+
+        return gameResult.Value ? "winner" : "loser";
+    }
+
+    private string GetMatchResultText(GameViewDto game) => 
+        game.Win != null ? $"{game.ChallengingPlayerWonGemsCount} : {game.ChallengedPlayerWonGemsCount}" : "VS";
+
+    private string FormatDate(DateTime dateTime) => dateTime.ToString("dd-MM-yyyy, hh:mm", CultureInfo.InvariantCulture);
 }
