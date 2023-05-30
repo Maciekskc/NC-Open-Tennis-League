@@ -1,0 +1,80 @@
+﻿.page-content{
+    justify-content: space-between;
+}
+
+.user-card {
+    width: 300px;
+    margin: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    color: var(--primary-color);
+}
+
+    .user-card .card-img-top {
+        font-size: 10rem;
+        color: var(--secondary-color);
+        margin-top: 1rem;
+        text-align: center;
+    }
+
+    .user-card .card-body {
+        padding: 20px;
+    }
+
+    .user-card .card-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .user-card .card-text {
+        margin-bottom: 20px;
+    }
+
+    .user-card .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+.games-list {
+    height: 300px;
+    overflow-y: auto;
+    margin: 20px;
+}
+
+    .games-list .card-body {
+        padding: 0;
+    }
+
+    .games-list .card-title {
+        padding: 10px;
+        background-color: var(--item-bg-color);
+        color: var(--primary-color);
+        margin-bottom: 0;
+        font-weight: bold;
+    }
+
+    .games-list table {
+        width: 100%;
+    }
+
+        .games-list table th,
+        .games-list table td {
+            padding: 8px;
+            border-bottom: 1px solid var(--item-bg-color);
+        }
+
+        .games-list table th {
+            background-color: var(--item-bg-color);
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+    .games-list .text-danger {
+        color: red;
+    }
+
+    .games-list .text-success {
+        color: green;
+    }

@@ -1,14 +1,33 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html {
-    --primary-color: #539165;
-    --secondary-color: #F7C04A;
-    --bg-color: #F8F5E4;
-    --font-color: #3F497F;
+    --primary-color: #263A29;
+    --primary-color-rgb: 38, 58, 41;
+    --secondary-color: #41644A;
+    --secondary-color-rgb: 65, 100, 74;
+    --distinctive-color: #E86A33;
+    --distinctive-color-rgb: 232, 106, 51;
+    --bg-color: #f4efe8;
+    --bg-color-rgb: 244, 239, 232;
+    --item-bg-color: #F2E3DB;
+    --item-bg-color-rgb: 242, 227, 219;
+    --separative-blue: #7C96AB;
+    --separative-blue-rgb: 124, 150, 171;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.page-content{
+    width:100%;
 }
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
 }
 
 h1:focus {
@@ -16,17 +35,65 @@ h1:focus {
 }
 
 a, .btn-link {
-    color: #0071c1;
+    color: var(--distinctive-color);
 }
 
 .btn-primary {
     color: #fff;
     background-color: var(--primary-color);
-    border-color: #1861ac;
+    border-color: var(--primary-color);
 }
+    .btn-primary:hover {
+        color: #fff;
+        background-color: var(--secondary-color);
+        border-color: var(--distinctive-color);
+    }
+
+    .btn-primary:disabled {
+        color: #fff;
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        filter: blur(1px);
+    }
+
+.btn-secondary {
+    color: #fff;
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+    .btn-secondary:hover {
+        color: #fff;
+        background-color: var(--secondary-color);
+        border-color: var(--distinctive-color);
+    }
+
+    .btn-secondary:disabled {
+        color: #fff;
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        filter: blur(1px);
+    }
+
+.btn-reverse {
+    color: #fff;
+    background-color: var(--distinctive-color);
+    border-color: var(--distinctive-color);
+}
+    .btn-reverse:hover {
+        color: #fff;
+        background-color: var(--distinctive-color);
+        border-color: var(--distinctive-color);
+    }
+
+    .btn-reverse:disabled {
+        color: #fff;
+        background-color: var(--distinctive-color);
+        border-color: var(--distinctive-color);
+        filter: blur(1px);
+    }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem var(--distinctive-color);
 }
 
 .content {
@@ -73,3 +140,5 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+

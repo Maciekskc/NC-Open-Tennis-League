@@ -1,3 +1,18 @@
 ﻿@page "/"
-@using BlazorWebServer.Pages.Main.Partials
-<MainPage />
+@inject NavigationManager NavigationManager
+
+<div class="page-content row">
+    <div class="banner">
+        <div class="logo-text">NC Tennis</div>
+    </div>
+    <div class="buttons-section">
+        <button onclick="@(() => NavigationManager.NavigateTo($"/ranking", true))" class="btn btn-main-page">Ranking</button>
+        <button onclick="@(() => NavigationManager.NavigateTo($"/players", true))" class="btn btn-main-page">Players</button>
+        <button onclick="@(() => NavigationManager.NavigateTo($"/ranking", true))" class="btn btn-main-page">Messages</button>
+        <button onclick="@(() => NavigationManager.NavigateTo($"/games", true))" class="btn btn-main-page">Games</button>
+    </div>
+</div>
+
+
+@code {
+}

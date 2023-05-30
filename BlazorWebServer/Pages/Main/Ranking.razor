@@ -7,9 +7,9 @@
 @inject IRankingService RankingService
 @inject IMessageService MessageService
 
-<div class="row">
+<div class="page-content mt-5 row">
     <div class="col-md-6">
-        <PlayerRankings @bind-PlayerList=@Players />
+        <PlayerRanking @bind-PlayerList=@Players />
     </div>
     <div class="col-md-6">
         <Messages @bind-MessageList=@Messages />

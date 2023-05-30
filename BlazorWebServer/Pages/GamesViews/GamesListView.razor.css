@@ -1,0 +1,49 @@
+﻿.game-card {
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    background-color: var(--item-bg-color);
+
+    margin: 3rem;
+    height: 100%;
+}
+    .game-card .game-card-top-section {
+        padding: 6px 8px;
+        display: flex;
+        justify-content: center;
+        color: var(--secondary-color);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .game-card .game-card-main-section {
+        display: flex;
+        justify-content: space-around;
+        font-weight: bold;
+    }
+        .game-card .game-card-main-section .winner {
+            color: var(--secondary-color) !important;
+        }
+
+        .game-card .game-card-main-section .loser {
+            color: grey !important;
+        }
+
+        .game-card .game-card-main-section .user-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .game-card .game-card-main-section .vs-text {
+            display: flex;
+            flex-direction: inherit;
+            align-items: center;
+        }
+
+    .game-card .game-card-actions-section {
+        display: flex;
+        justify-content: center;
+        padding: 4px 8px;
+    }

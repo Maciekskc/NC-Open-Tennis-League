@@ -6,8 +6,10 @@
 @inject NavigationManager NavigationManager
 
 
-<div class="row">
+<div class="page-content mt-5">
     <GamesListView @bind-GamesList=@Games />
+
+    <button onclick="@(() => NavigationManager.NavigateTo("/create-game",true))" class="btn btn-primary mx-4">Add New</button>
 </div>
 
 @code {

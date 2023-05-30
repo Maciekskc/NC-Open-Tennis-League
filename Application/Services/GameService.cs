@@ -64,7 +64,7 @@ public class GameService : BaseService, IGameService
         throw new NotImplementedException();
     }
 
-    Task<List<GameViewDto>> IGameService.GetAllPlayerGamesAsync(Guid PlayerId)
+    public Task<List<GameViewDto>> GetAllPlayerGamesAsync(Guid PlayerId)
     {
         throw new NotImplementedException();
     }
