@@ -4,11 +4,10 @@
     <ul class="list-group">
         @foreach (var message in MessageList)
         {
-            <li class="list-group-item">
-                <div>
-                    <p>@message.Date.ToString()</p>
-                    <div>@message.Content</div>
-                </div>
+            <li class="message-list-item">
+                <p class="message-date-paragrap">@message.Date.ToString()</p>
+                <hr class="m-0"/>
+                <div class="message-content">@message.Content</div>
             </li>
         }
     </ul>

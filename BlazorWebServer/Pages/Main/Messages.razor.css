@@ -1,0 +1,19 @@
+﻿.message-list-item {
+    position: relative;
+    display: block;
+    background-color: var(--item-bg-color);
+    border: 1px solid rgba(var(--primary-color-rgb), 0.5);
+    box-shadow: 0px 2px 4px var(--primary-color);
+    margin-bottom: .5rem;
+}
+
+.message-date-paragrap {
+    margin: 0.25rem 0 0 0.25rem;
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+}
+
+.message-content {
+    margin: 0.25rem 0 0 1rem;
+    color: var(--primary-color);
+}
