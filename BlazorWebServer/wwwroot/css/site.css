@@ -1,11 +1,6 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html {
-    /*    --primary-color: #539165;
-    --secondary-color: #F7C04A;
-    --bg-color: #F2E3DB;
-    --font-color: #3F497F;*/
-
     --primary-color: #263A29;
     --secondary-color: #41644A;
     --distinctive-color: #E86A33;
@@ -47,6 +42,49 @@ a, .btn-link {
         color: #fff;
         background-color: var(--secondary-color);
         border-color: var(--distinctive-color);
+    }
+
+    .btn-primary:disabled {
+        color: #fff;
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        filter: blur(1px);
+    }
+
+.btn-secondary {
+    color: #fff;
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+    .btn-secondary:hover {
+        color: #fff;
+        background-color: var(--secondary-color);
+        border-color: var(--distinctive-color);
+    }
+
+    .btn-secondary:disabled {
+        color: #fff;
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        filter: blur(1px);
+    }
+
+.btn-reverse {
+    color: #fff;
+    background-color: var(--distinctive-color);
+    border-color: var(--distinctive-color);
+}
+    .btn-reverse:hover {
+        color: #fff;
+        background-color: var(--distinctive-color);
+        border-color: var(--distinctive-color);
+    }
+
+    .btn-reverse:disabled {
+        color: #fff;
+        background-color: var(--distinctive-color);
+        border-color: var(--distinctive-color);
+        filter: blur(1px);
     }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {

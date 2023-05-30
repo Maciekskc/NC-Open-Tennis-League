@@ -8,14 +8,6 @@
     @foreach (var game in GamesList)
     {
         <div class="col-md-3 game-card">
-            @*<p><strong>Challenging Player Name:</strong> @game.ChallengingPlayerName</p>
-            <p><strong>Challenged Player Name:</strong> @game.ChallengedPlayerName</p>
-            <p><strong>Challenge Date:</strong> @game.ChallengeDate.ToString("dd/MM/yyyy HH:mm:ss")</p>
-            <p><strong>Match Date:</strong> @(game.MatchDate.HasValue ? game.MatchDate.Value.ToString("dd/MM/yyyy HH:mm:ss") : "N/A")</p>
-            <p><strong>Win:</strong> @(game.Win.HasValue ? (game.Win.Value ? "Challenging Player" : "Challenged Player") : "N/A")</p>
-            <p><strong>Walkover:</strong> @(game.Walkover.HasValue ? (game.Walkover.Value ? "Yes" : "No") : "N/A")</p>
-            <p><strong>Challenging Player Won Gems Count:</strong> @game.ChallengingPlayerWonGemsCount</p>
-            <p><strong>Challenged Player Won Gems Count:</strong> @game.ChallengedPlayerWonGemsCount</p>*@
             <div class="game-card-top-section">
                 @GameCardHeaderTextGenerator(game)
             </div>
@@ -39,13 +31,11 @@
             @if (game.Win == null)
             {
                 <div class="game-card-actions-section">
-                    <button onclick="@(() => NavigationManager.NavigateTo($"/finalize-game/{game.GameId}",true))" class="btn btn-warning">Finalize</button>
+                    <button onclick="@(() => NavigationManager.NavigateTo($"/finalize-game/{game.GameId}",true))" class="btn btn-reverse">Finalize</button>
                 </div>
             }
         </div>
     }
-
-    <button onclick="@(() => NavigationManager.NavigateTo("/create-game",true))" class="btn btn-primary">Add New</button>
 </div>
 
 @code {

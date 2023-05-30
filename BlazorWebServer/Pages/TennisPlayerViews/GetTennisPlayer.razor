@@ -16,8 +16,8 @@
                     <h5 class="card-title">@TennisPlayer.Initials</h5>
                     <p class="card-text">Ranking Position: #@TennisPlayer.Position</p>
                     <div class="d-grid gap-2">
-                        <button onclick="@(() => @RemovePlayer())" class="btn btn-primary" type="button">Delete</button>
-                        <button onclick="@(() => NavigationManager.NavigateTo($"/players/{PlayerId}/update", true))" class="btn btn-secondary" type="button">Update</button>
+                        <button disabled onclick="@(() => @RemovePlayer())" class="btn btn-primary" type="button">Delete</button>
+                        <button disabled onclick="@(() => NavigationManager.NavigateTo($"/players/{PlayerId}/update", true))" class="btn btn-secondary" type="button">Update</button>
                     </div>
                 </div>
             </div>

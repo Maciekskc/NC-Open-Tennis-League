@@ -20,10 +20,10 @@
                     <td>@player.Initials</td>
                     <td>
                         <button onclick="@(() => NavigationManager.NavigateTo($"/players/{player.PlayerId}", true))" class="btn btn-action"><i class="bi bi-info-circle icon-action"></i></button>
-                        <button onclick="@(() => RemovePlayer(player.PlayerId))" class="btn btn-action btn-remove"><i class="bi bi-trash icon-action"></i></button>
+                        @*<button onclick="@(() => RemovePlayer(player.PlayerId))" class="btn btn-action btn-remove"><i class="bi bi-trash icon-action"></i></button>*@
                         @if (IsChellengable(player.Position))
                         {
-                            <button onclick="@(() => ChallengePlayer(player.PlayerId))" class="btn btn-action btn-challenge"><i class="bi bi-award icon-action"></i></button>
+                            <button disabled onclick="@(() => ChallengePlayer(player.PlayerId))" class="btn btn-action btn-challenge"><i class="bi bi-award icon-action"></i></button>
                         }
                     </td>
                 </tr>
