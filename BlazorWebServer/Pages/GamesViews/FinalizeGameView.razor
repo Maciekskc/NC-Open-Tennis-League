@@ -1,0 +1,81 @@
+﻿@page "/finalize-game/{GameId}"
+@using Application.DTOs.Games
+@using Application.Interfaces
+@using Application.Services
+@inject IGameService GameService
+@inject NavigationManager NavigationManager
+
+<div class="page-content mt-5">
+    <h1>Finalize Game</h1>
+
+    @if (errorMessage != null)
+    {
+        <div class="alert alert-danger">@errorMessage</div>
+    }
+
+    <EditForm Model="@finalizeGameDto" OnValidSubmit="@FinalizeGame">
+        <DataAnnotationsValidator />
+        <div class="form-group">
+            <label for="matchDate">Match Date:</label>
+            <InputDate id="matchDate" class="form-control" @bind-Value="finalizeGameDto.MatchDate" />
+            <ValidationMessage For="@(() => finalizeGameDto.MatchDate)" />
+        </div>
+
+        <div class="form-group">
+            <label for="win">Win:</label>
+            <select name="win" class="form-control" @bind="finalizeGameDto.Win">
+                <option value="">Select win</option>
+                <option value="true">Challenging player</option>
+                <option value="false">Challenged player</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="walkover">Walkover:</label>
+            <select name="walkover" class="form-control" @bind="finalizeGameDto.Walkover">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="challengingPlayerWonGemsCount">Challenging Player Won Gems Count:</label>
+            <input type="number" class="form-control" @bind="finalizeGameDto.ChallengingPlayerWonGemsCount" />
+        </div>
+
+        <div class="form-group">
+            <label for="challengedPlayerWonGemsCount">Challenged Player Won Gems Count:</label>
+            <input type="number" class="form-control" @bind="finalizeGameDto.ChallengedPlayerWonGemsCount" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Finalize Game</button>
+    </EditForm>
+</div>
+@code {
+
+    [Parameter]
+    public string GameId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var gameId = Guid.Parse(GameId);
+        finalizeGameDto.GameId = gameId;
+    }
+
+    private FinalizeGameDto finalizeGameDto = new FinalizeGameDto();
+    private string? errorMessage;
+
+    private async Task FinalizeGame()
+    {
+        try
+        {
+            await GameService.FinalizeGameAsync(finalizeGameDto);
+            errorMessage = null;
+            NavigationManager.NavigateTo("/games", true);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+    }
+}

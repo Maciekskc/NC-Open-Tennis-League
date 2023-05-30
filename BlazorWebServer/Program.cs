@@ -1,11 +1,11 @@
 using Application.Interfaces;
 using Application.Services;
 using BlazorWebServer.Areas.Identity;
-using Data.Models;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Persistance;
+using Persistance.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,7 +32,10 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-builder.Services.AddScoped<IExampleService, ExampleService>();
+builder.Services.AddScoped<IMessageService, MessageService>();
+builder.Services.AddScoped<IRankingService, RankingService>();
+builder.Services.AddScoped<IGameService, GameService>();
+builder.Services.AddScoped<ITennisPlayerService, TennisPlayerService>();
 
 var app = builder.Build();
 

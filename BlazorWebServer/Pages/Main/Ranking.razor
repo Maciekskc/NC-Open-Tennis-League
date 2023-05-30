@@ -1,0 +1,31 @@
+﻿@page "/ranking"
+@using Application.DTOs;
+@using Application.DTOs.Message;
+@using Application.DTOs.Ranking;
+@using Application.Interfaces;
+@using Application.Services;
+@inject IRankingService RankingService
+@inject IMessageService MessageService
+
+<div class="page-content mt-5 row">
+    <div class="col-md-6">
+        <PlayerRanking @bind-PlayerList=@Players />
+    </div>
+    <div class="col-md-6">
+        <Messages @bind-MessageList=@Messages />
+    </div>
+</div>
+
+@code {
+    private List<RankingRecord> Players = new List<RankingRecord>();
+    private List<RankingUpdateMessage> Messages = new List<RankingUpdateMessage>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetRanking();
+        await GetMessages();
+    }
+
+    private async Task GetRanking() => Players = await RankingService.GetRanking();
+    private async Task GetMessages() => Messages = await MessageService.GetMessages();
+}

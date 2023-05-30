@@ -1,0 +1,65 @@
+﻿/* Styles for ranking table component */
+.ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid rgba(var(--primary-color-rgb), 0.5);
+    box-shadow: 0px 2px 4px var(--primary-color);
+    background-color: var(--item-bg-color);
+}
+
+th {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+td {
+    color: var(--secondary-color);
+    font-weight: bolder;
+}
+
+.position-col {
+    width: 80px;
+}
+
+.initials-col {
+    width: 150px;
+}
+
+.actions-col {
+    width: 300px;
+}
+
+.btn-action {
+    padding: 6px;
+    border: none;
+    background-color: inherit;
+    color: var(--secondary-color);
+    transition: background-color 0.3s;
+    transition: color 0.3s;
+}
+
+.icon-action {
+    color: inherit;
+}
+
+
+.btn-action:hover {
+    color: var(--distinctive-color);
+    background-color: var(--secondary-color);
+}
+
+.btn-add {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    padding: 10px 16px;
+    transition: background-color 0.3s;
+}
+
+.icon-add {
+    margin-right: 5px;
+}
+
+.btn-add:hover {
+    background-color: #ff6600;
+}

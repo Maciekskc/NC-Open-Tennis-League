@@ -1,0 +1,73 @@
+﻿@using Application.DTOs.Games;
+@using Application.Interfaces;
+@using System.Globalization;
+@inject IGameService GameService
+@inject NavigationManager NavigationManager
+
+<div class="row">
+    @foreach (var game in GamesList)
+    {
+        <div class="col-md-3 game-card">
+            <div class="game-card-top-section">
+                @GameCardHeaderTextGenerator(game)
+            </div>
+            <div class="game-card-main-section">
+                    
+                <div>
+                    <i class="bi bi-person-fill user-icon @IsChallangeWonStylePicker(game.Win)"></i>
+                    <p>@game.ChallengingPlayerName</p>
+                </div>
+
+                <div class="vs-text">
+                    @GetMatchResultText(game)
+                </div>
+
+                <div>
+                    <i class="bi bi-person-fill user-icon @IsChallangeWonStylePicker(!game.Win)"></i>
+                    <p>@game.ChallengedPlayerName</p>
+                </div>
+            </div>
+
+            @if (game.Win == null)
+            {
+                <div class="game-card-actions-section">
+                    <button onclick="@(() => NavigationManager.NavigateTo($"/finalize-game/{game.GameId}",true))" class="btn btn-reverse">Finalize</button>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public List<GameViewDto> GamesList { get; set; }
+
+    [Parameter]
+    public EventCallback<List<GameViewDto>> GamesListChanged { get; set; }
+
+    private async Task OnMyPropertyChanged()
+    {
+        await GamesListChanged.InvokeAsync(GamesList);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await GamesListChanged.InvokeAsync(GamesList);
+    }
+
+    private string GameCardHeaderTextGenerator(GameViewDto game) =>
+        game.MatchDate != null ? $"Match date: {FormatDate(game.MatchDate.Value)}" : $"Challange date: {FormatDate(game.ChallengeDate)}";
+
+    private string IsChallangeWonStylePicker(bool? gameResult)
+    {
+        if (gameResult == null) return "";
+
+        return gameResult.Value ? "winner" : "loser";
+    }
+
+    private string GetMatchResultText(GameViewDto game) => 
+        game.Win != null ? $"{game.ChallengingPlayerWonGemsCount} : {game.ChallengedPlayerWonGemsCount}" : "VS";
+
+    private string FormatDate(DateTime dateTime) => dateTime.ToString("dd-MM-yyyy, hh:mm", CultureInfo.InvariantCulture);
+}

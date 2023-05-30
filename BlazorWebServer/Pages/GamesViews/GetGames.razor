@@ -1,0 +1,24 @@
+﻿@page "/games"
+@using Application.DTOs.Games
+@using Application.Interfaces;
+@using Application.Services;
+@inject IGameService GameService
+@inject NavigationManager NavigationManager
+
+
+<div class="page-content mt-5">
+    <GamesListView @bind-GamesList=@Games />
+
+    <button onclick="@(() => NavigationManager.NavigateTo("/create-game",true))" class="btn btn-primary mx-4">Add New</button>
+</div>
+
+@code {
+    private List<GameViewDto> Games = new List<GameViewDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetAllGames();
+    }
+
+    private async Task GetAllGames() => Games = await GameService.GetAllAsync();
+}

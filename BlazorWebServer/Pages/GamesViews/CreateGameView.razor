@@ -1,0 +1,73 @@
+﻿@page "/create-game"
+@using Application.DTOs.Games
+@using Application.DTOs.TennisPlayer
+@using Application.Interfaces
+@using Application.Services
+@inject ITennisPlayerService TennisPlayerService
+@inject IGameService GameService
+@inject NavigationManager NavigationManager
+
+<div class="page-content mt-5">
+    <h1>Create Game</h1>
+    @if (errorMessage != null)
+    {
+        <div class="alert alert-danger">@errorMessage</div>
+    }
+
+    <EditForm Model="@gameDto" OnValidSubmit="@CreateGame">
+        <DataAnnotationsValidator />
+        <div class="form-group">
+            <label for="challengingPlayerId">Challenging Player:</label>
+            <select name="challengingPlayerId" class="form-control" @bind="gameDto.ChallengingPlayerId">
+                <option value="@Guid.NewGuid()">Select player</option>
+                @foreach (var player in players)
+                {
+                    <option value="@player.PlayerId">@player.Initials</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="challengedPlayerId">Challenged Player:</label>
+            <select name="challengedPlayerId" class="form-control" @bind="gameDto.ChallengedPlayerId">
+                <option value="@Guid.NewGuid()">Select player</option>
+                @foreach (var player in players)
+                {
+                    <option value="@player.PlayerId">@player.Initials</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="challengeDate">Challenge Date:</label>
+            <InputDate id="challengeDate" class="form-control" @bind-Value="gameDto.ChallengeDate" />
+            <ValidationMessage For="@(() => gameDto.ChallengeDate)" />
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </EditForm>
+</div>
+@code {
+    private CreateGameDto gameDto = new CreateGameDto();
+    private string? errorMessage;
+    private List<TennisPlayerDto> players = new List<TennisPlayerDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        players = await TennisPlayerService.GetAllAsync();
+    }
+
+    private async Task CreateGame()
+    {
+        try
+        {
+            var createdGame = await GameService.CreateAsync(gameDto);
+            errorMessage = null;
+            gameDto = new CreateGameDto();
+            NavigationManager.NavigateTo("/games", true);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+    }
+}

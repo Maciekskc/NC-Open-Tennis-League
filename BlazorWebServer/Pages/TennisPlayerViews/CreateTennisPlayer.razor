@@ -1,0 +1,44 @@
+﻿@page "/create-player"
+@using Application.DTOs.TennisPlayer;
+@using Application.Interfaces;
+@using Application.Services;
+@inject ITennisPlayerService TennisPlayerService
+@inject NavigationManager NavigationManager
+
+<div class="page-content mt-5">
+    <h1>Create Player</h1>
+
+    @if (errorMessage != null)
+    {
+        <div class="alert alert-danger">@errorMessage</div>
+    }
+
+    <EditForm Model="@playerDto" OnValidSubmit="@CreatePlayer">
+        <DataAnnotationsValidator />
+        <div class="form-group">
+            <label for="initials">Initials:</label>
+            <InputText id="initials" class="form-control" @bind-Value="playerDto.Initials" />
+            <ValidationMessage For="@(() => playerDto.Initials)" />
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </EditForm>
+</div>
+@code {
+    private TennisPlayerDto playerDto = new TennisPlayerDto();
+    private string? errorMessage;
+
+    private async Task CreatePlayer()
+    {
+        try
+        {
+            var createdPlayer = await TennisPlayerService.CreateAsync(playerDto);
+            errorMessage = null;
+            playerDto = new TennisPlayerDto();
+            NavigationManager.NavigateTo("/", true);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+    }
+}

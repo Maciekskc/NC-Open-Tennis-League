@@ -4,8 +4,8 @@ public record class LeaguePositions
 {
     public Guid LeaguePositionId { get; } = Guid.NewGuid();
 
-    public string PlayerId { get; set; }
-    public ApplicationUser Player { get; set; }
+    public Guid PlayerId { get; set; }
+    public TennisPlayer Player { get; set; }
 
     public int Position { get; set; }
 

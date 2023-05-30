@@ -1,0 +1,117 @@
+﻿@inject ITennisPlayerService TennisPlayerService
+@inject NavigationManager NavigationManager
+
+@page "/players/{PlayerId}"
+@using Application.DTOs.TennisPlayer;
+@using Application.DTOs.Games;
+@using Application.Interfaces;
+
+<div class="page-content mt-5 row">
+    @if (TennisPlayer != null)
+    {
+        <div class="col-md-2">
+            <div class="card user-card">
+                <i class="bi bi-person-fill card-img-top user-icon"></i>
+                <div class="card-body">
+                    <h5 class="card-title">@TennisPlayer.Initials</h5>
+                    <p class="card-text">Ranking Position: #@TennisPlayer.Position</p>
+                    <div class="d-grid gap-2">
+                        <button disabled onclick="@(() => @RemovePlayer())" class="btn btn-primary" type="button">Delete</button>
+                        <button disabled onclick="@(() => NavigationManager.NavigateTo($"/players/{PlayerId}/update", true))" class="btn btn-secondary" type="button">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="card games-list">
+                <div class="card-body">
+                    <h5 class="card-title">Player Games</h5>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Opponent</th>
+                                    <th>Match Result</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var game in Games)
+                                {
+                                    <tr>
+                                        <td>@game.MatchDate.ToString()</td>
+                                        <td>@game.ChallengedPlayerName</td>
+                                        <td class="@GetMatchResultClass(game.Win.Value)">@GetMatchResultSentence(game.Win.Value)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div>Loading...</div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string PlayerId { get; set; }
+
+    public TennisPlayerDto TennisPlayer { get; set; } = null;
+
+    public List<GameViewDto> Games = new List<GameViewDto>()
+    {
+        new GameViewDto
+        {
+            GameId = Guid.NewGuid(),
+            ChallengingPlayerName = "Challenging Player",
+            ChallengedPlayerName = "Oponent",
+            ChallengeDate = DateTime.Now,
+            MatchDate = DateTime.Now,
+            Win = true,
+            Walkover = false,
+            ChallengingPlayerWonGemsCount = 0,
+            ChallengedPlayerWonGemsCount = 0
+        },
+        new GameViewDto
+        {
+            GameId = Guid.NewGuid(),
+            ChallengingPlayerName = "Oponent",
+            ChallengedPlayerName = "Challenged Player",
+            ChallengeDate = DateTime.Now,
+            MatchDate = DateTime.Now,
+            Win = false,
+            Walkover = false,
+            ChallengingPlayerWonGemsCount = 0,
+            ChallengedPlayerWonGemsCount = 0
+        }
+    };
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        TennisPlayer = await TennisPlayerService.GetByIdAsync(Guid.Parse(PlayerId));
+        StateHasChanged();
+    }
+
+    private async Task RemovePlayer()
+    {
+        await TennisPlayerService.DeleteAsync(Guid.Parse(PlayerId));
+        NavigationManager.NavigateTo("/", true);
+    }
+
+    private string GetMatchResultClass(bool isWinned)
+    {
+        return isWinned == false ? "text-danger" : "text-success";
+    }
+
+    private string GetMatchResultSentence(bool isWinned)
+    {
+        return isWinned == false ? "Lost" : "Won";
+    }
+}
