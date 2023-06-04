@@ -1,11 +1,14 @@
 ﻿using Infrastructure.DTOs.Games;
 using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace API.Controllers
 {
     [ApiController]
-    [Route("api/games")]
+    [Route(ApiRoutes.Base)]
     public class GameController : ControllerBase
     {
         private readonly IGameService _gameService;
@@ -15,21 +18,21 @@ namespace API.Controllers
             _gameService = gameService;
         }
 
-        [HttpPost]
+        [HttpPost(ApiRoutes.Games.Create)]
         public async Task<IActionResult> Create(CreateGameDto gameDto)
         {
             var createdGame = await _gameService.CreateAsync(gameDto);
             return CreatedAtAction(nameof(GetById), new { id = createdGame.GameId }, createdGame);
         }
 
-        [HttpPost("finalize")]
+        [HttpPost(ApiRoutes.Games.Finalize)]
         public async Task<IActionResult> Finalize(FinalizeGameDto gameDto)
         {
             await _gameService.FinalizeGameAsync(gameDto);
             return NoContent();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet(ApiRoutes.Games.GetById)]
         public async Task<IActionResult> GetById(Guid id)
         {
             var game = await _gameService.GetByIdAsync(id);
@@ -39,7 +42,7 @@ namespace API.Controllers
             return Ok(game);
         }
 
-        [HttpGet("viewmodel/{id}")]
+        [HttpGet(ApiRoutes.Games.GetViewModelById)]
         public async Task<IActionResult> GetViewModelById(Guid id)
         {
             var gameViewModel = await _gameService.GetViewModelByIdAsync(id);
@@ -49,28 +52,28 @@ namespace API.Controllers
             return Ok(gameViewModel);
         }
 
-        [HttpGet("player/{playerId}")]
+        [HttpGet(ApiRoutes.Games.GetAllPlayerGames)]
         public async Task<IActionResult> GetAllPlayerGames(Guid playerId)
         {
             var playerGames = await _gameService.GetAllPlayerGamesAsync(playerId);
             return Ok(playerGames);
         }
 
-        [HttpGet]
+        [HttpGet(ApiRoutes.Games.GetAll)]
         public async Task<IActionResult> GetAll()
         {
             var games = await _gameService.GetAllAsync();
             return Ok(games);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut(ApiRoutes.Games.Update)]
         public async Task<IActionResult> Update(Guid id, GameViewDto gameDto)
         {
             await _gameService.UpdateAsync(id, gameDto);
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete(ApiRoutes.Games.Delete)]
         public async Task<IActionResult> Delete(Guid id)
         {
             await _gameService.DeleteAsync(id);

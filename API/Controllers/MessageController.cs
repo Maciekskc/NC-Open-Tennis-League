@@ -1,10 +1,11 @@
 ﻿using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace API.Controllers
 {
     [ApiController]
-    [Route("api/messages")]
+    [Route(ApiRoutes.Base)]
     public class MessageController : ControllerBase
     {
         private readonly IMessageService _messageService;
@@ -14,7 +15,7 @@ namespace API.Controllers
             _messageService = messageService;
         }
 
-        [HttpGet]
+        [HttpGet(ApiRoutes.Messages.GetMessages)]
         public async Task<IActionResult> GetMessages()
         {
             var messages = await _messageService.GetMessages();
