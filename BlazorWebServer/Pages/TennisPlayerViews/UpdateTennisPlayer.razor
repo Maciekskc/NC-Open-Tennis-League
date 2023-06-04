@@ -1,4 +1,4 @@
-﻿@inject ITennisPlayerService TennisPlayerService
+﻿@inject ITennisPlayerHttpRepository TennisPlayerService
 @inject NavigationManager NavigationManager
 
 @page "/players/{PlayerId}/update"
@@ -30,7 +30,7 @@
 
     public TennisPlayerDto TennisPlayer { get; set; } = new TennisPlayerDto();
 
-    protected override async Task OnInitializedAsync() => TennisPlayer = await TennisPlayerService.GetByIdAsync(Guid.Parse(PlayerId));
+    protected override async Task OnInitializedAsync() => TennisPlayer = await TennisPlayerService.GetByIdAsync(PlayerId);
 
     private async Task UpdatePlayer()
     {

@@ -32,10 +32,13 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-builder.Services.AddScoped<IMessageService, MessageService>();
-builder.Services.AddScoped<IRankingService, RankingService>();
-builder.Services.AddScoped<IGameService, GameService>();
-builder.Services.AddScoped<ITennisPlayerService, TennisPlayerService>();
+
+var apiUrl = builder.Configuration.GetConnectionString("ApiBaseUrl") ?? throw new InvalidOperationException("Connection string 'ApiBaseUrl' not found.");
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(apiUrl) });
+builder.Services.AddScoped<IMessageHttpRepository, MessageHttpRepository>();
+builder.Services.AddScoped<IRankingHttpRepository, RankingHttpRepository>();
+builder.Services.AddScoped<IGameHttpRepository, GameHttpRepository>();
+builder.Services.AddScoped<ITennisPlayerHttpRepository, TennisPlayerHttpRepository>();
 
 var app = builder.Build();
 

@@ -3,7 +3,7 @@ using Persistance.Models;
 
 namespace Application.Interfaces;
 
-public interface IGameService
+public interface IGameHttpRepository
 {
     Task<Game> CreateAsync(CreateGameDto gameDto); 
     Task FinalizeGameAsync(FinalizeGameDto gameDto);

@@ -2,7 +2,7 @@
 
 namespace Application.Interfaces
 {
-    public interface IMessageService
+    public interface IMessageHttpRepository
     {
         Task<List<RankingUpdateMessage>> GetMessages();
     }

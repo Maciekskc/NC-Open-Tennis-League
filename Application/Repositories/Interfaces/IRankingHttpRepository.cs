@@ -2,7 +2,7 @@
 
 namespace Application.Interfaces;
 
-public interface IRankingService
+public interface IRankingHttpRepository
 {
     Task<List<RankingRecord>> GetRanking();
 }
