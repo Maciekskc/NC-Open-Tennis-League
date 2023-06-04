@@ -1,4 +1,6 @@
-﻿using Infrastructure.DTOs.TennisPlayer;
+﻿using Infrastructure.DTOs.Ranking;
+using Infrastructure.DTOs.TennisPlayer;
+using Persistance.Models;
 
 namespace Infrastructure.Interfaces
 {
@@ -9,5 +11,6 @@ namespace Infrastructure.Interfaces
         Task<List<TennisPlayerDto>> GetAllAsync();
         Task UpdateAsync(Guid id, TennisPlayerDto playerDto);
         Task DeleteAsync(Guid id);
+        Task<List<RankingRecord>> GetRanking();
     }
 }

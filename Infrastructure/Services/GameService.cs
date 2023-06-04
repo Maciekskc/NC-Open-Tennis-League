@@ -1,5 +1,7 @@
 ﻿using Infrastructure.DTOs.Games;
 using Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Persistance.Models;
 
 namespace Infrastructure.Services;
 

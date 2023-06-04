@@ -1,5 +1,8 @@
-﻿using Infrastructure.DTOs.TennisPlayer;
+﻿using Infrastructure.DTOs.Ranking;
+using Infrastructure.DTOs.TennisPlayer;
 using Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Persistance.Models;
 
 namespace Infrastructure.Services
 {
@@ -56,6 +59,13 @@ namespace Infrastructure.Services
 
             DbContext.Players.Remove(player);
             await DbContext.SaveChangesAsync();
+        }
+
+        public async Task<List<RankingRecord>> GetRanking()
+        {
+            var positions = await DbContext.Players.Select(p => Mapper.TennisPlayerToRankingRecord(p)).ToListAsync();
+            positions.Sort((x, y) => x.Position - y.Position);
+            return positions;
         }
     }
 

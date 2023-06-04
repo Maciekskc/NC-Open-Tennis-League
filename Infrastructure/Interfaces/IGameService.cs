@@ -1,4 +1,5 @@
 ﻿using Infrastructure.DTOs.Games;
+using Persistance.Models;
 
 namespace Infrastructure.Interfaces;
 

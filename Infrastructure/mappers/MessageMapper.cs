@@ -1,4 +1,5 @@
 ﻿using Infrastructure.DTOs.Message;
+using Persistance.Models;
 
 namespace Infrastructure.mappers
 {
