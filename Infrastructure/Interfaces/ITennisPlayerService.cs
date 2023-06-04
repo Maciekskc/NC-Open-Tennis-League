@@ -1,5 +1,5 @@
-﻿using Infrastructure.DTOs.Ranking;
-using Infrastructure.DTOs.TennisPlayer;
+﻿using Communication.DTOs.Ranking;
+using Communication.DTOs.TennisPlayer;
 using Persistance.Models;
 
 namespace Infrastructure.Interfaces

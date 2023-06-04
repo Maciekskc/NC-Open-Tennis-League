@@ -1,9 +1,9 @@
-﻿using Infrastructure.DTOs.TennisPlayer;
-using Infrastructure.Interfaces;
+﻿using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Communication.DTOs.TennisPlayer;
 
 namespace API.Controllers
 {

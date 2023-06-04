@@ -1,4 +1,4 @@
-﻿using Infrastructure.DTOs.Message;
+﻿using Communication.DTOs.Message;
 
 namespace Infrastructure.Interfaces
 {

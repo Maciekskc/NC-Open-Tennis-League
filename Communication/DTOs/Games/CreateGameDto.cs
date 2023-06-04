@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.DTOs.Games;
+﻿namespace Communication.DTOs.Games;
 
 public record CreateGameDto
 {

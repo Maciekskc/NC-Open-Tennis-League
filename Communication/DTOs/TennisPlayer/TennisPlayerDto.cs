@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.DTOs.TennisPlayer;
+﻿namespace Communication.DTOs.TennisPlayer;
 
 public record TennisPlayerDto
 {

@@ -1,4 +1,4 @@
-﻿using Infrastructure.DTOs.Games;
+﻿using Communication.DTOs.Games;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Persistance.Models;

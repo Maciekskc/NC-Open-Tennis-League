@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Infrastructure.DTOs.Games
+namespace Communication.DTOs.Games
 {
     public class FinalizeGameDto
     {

@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.DTOs.Ranking;
+﻿namespace Communication.DTOs.Ranking;
 
 public class RankingRecord
 {

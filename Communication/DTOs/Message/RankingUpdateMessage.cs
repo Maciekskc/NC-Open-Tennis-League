@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.DTOs.Message;
+﻿namespace Communication.DTOs.Message;
 
 public class RankingUpdateMessage
 {

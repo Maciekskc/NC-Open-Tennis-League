@@ -1,4 +1,4 @@
-﻿using Infrastructure.DTOs.Games;
+﻿using Communication.DTOs.Games;
 using Persistance.Models;
 using Riok.Mapperly.Abstractions;
 
