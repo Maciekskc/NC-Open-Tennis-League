@@ -1,4 +1,6 @@
 ﻿using Infrastructure.DTOs.Games;
+using Persistance.Models;
+using Riok.Mapperly.Abstractions;
 
 namespace Infrastructure.mappers
 {

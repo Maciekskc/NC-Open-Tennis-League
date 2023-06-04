@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.mappers
+﻿using Riok.Mapperly.Abstractions;
+
+namespace Infrastructure.mappers
 {
     /// <summary>
     /// Base definition for mapperly mapper

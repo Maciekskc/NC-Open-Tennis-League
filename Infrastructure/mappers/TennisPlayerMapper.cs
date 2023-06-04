@@ -1,5 +1,7 @@
 ﻿using Infrastructure.DTOs.Ranking;
 using Infrastructure.DTOs.TennisPlayer;
+using Persistance.Models;
+using Riok.Mapperly.Abstractions;
 
 namespace Infrastructure.mappers
 {
