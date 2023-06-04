@@ -1,10 +1,8 @@
-﻿using Application.DTOs.Games;
-using Application.Interfaces;
-using Infrastructure.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using Application.Interfaces;
+using Communication.DTOs.Games;
+using Application.Services;
 using Microsoft.EntityFrameworkCore;
 using Persistance.Models;
-using System.Numerics;
 
 namespace Application.Services;
 

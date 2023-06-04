@@ -1,4 +1,4 @@
-﻿using Application.DTOs.TennisPlayer;
+﻿using Communication.DTOs.TennisPlayer;
 using Persistance.Models;
 
 namespace Application.Interfaces

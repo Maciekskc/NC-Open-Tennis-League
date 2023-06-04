@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Message;
+﻿using Communication.DTOs.Message;
 
 namespace Application.Interfaces
 {

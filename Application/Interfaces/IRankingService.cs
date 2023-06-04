@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Ranking;
+﻿using Communication.DTOs.Ranking;
 
 namespace Application.Interfaces;
 

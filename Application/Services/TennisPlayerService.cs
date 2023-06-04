@@ -1,15 +1,7 @@
-﻿using Application.DTOs.TennisPlayer;
-using Application.Interfaces;
-using Infrastructure.Services;
+﻿using Application.Interfaces;
+using Communication.DTOs.TennisPlayer;
 using Microsoft.EntityFrameworkCore;
 using Persistance.Models;
-using System;
-using System.Buffers.Text;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Services
 {

@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Games;
+﻿using Communication.DTOs.Games;
 using Persistance.Models;
 
 namespace Application.Interfaces;

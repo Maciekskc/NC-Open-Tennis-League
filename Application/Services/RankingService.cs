@@ -1,6 +1,5 @@
-﻿using Application.DTOs.Ranking;
-using Application.Interfaces;
-using Infrastructure.Services;
+﻿using Application.Interfaces;
+using Communication.DTOs.Ranking;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services;

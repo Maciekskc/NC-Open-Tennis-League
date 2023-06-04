@@ -1,6 +1,5 @@
-﻿using Application.DTOs.Games;
-using Application.DTOs.Ranking;
-using Application.DTOs.TennisPlayer;
+﻿using Communication.DTOs.Ranking;
+using Communication.DTOs.TennisPlayer;
 using Persistance.Models;
 using Riok.Mapperly.Abstractions;
 

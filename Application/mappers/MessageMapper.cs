@@ -1,7 +1,5 @@
-﻿using Application.DTOs.Games;
-using Application.DTOs.Message;
+﻿using Communication.DTOs.Message;
 using Persistance.Models;
-using Riok.Mapperly.Abstractions;
 
 namespace Application.Mappers
 {
