@@ -1,9 +1,8 @@
-﻿using Application.Interfaces;
-using Application.Repositories;
+﻿using Application.Repositories.Interfaces;
 using Communication.DTOs.TennisPlayer;
 using Persistance.Models;
 
-namespace Application.Services
+namespace Application.Repositories
 {
     public class TennisPlayerHttpRepository : BaseHttpRepository, ITennisPlayerHttpRepository
     {

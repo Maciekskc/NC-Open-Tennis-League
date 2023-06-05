@@ -1,7 +1,7 @@
-﻿using Application.Interfaces;
-using Application.Repositories;
+﻿using Application.Repositories.Interfaces;
 using Communication.DTOs.Message;
-namespace Application.Services;
+
+namespace Application.Repositories;
 
 public class MessageHttpRepository : BaseHttpRepository, IMessageHttpRepository
 {

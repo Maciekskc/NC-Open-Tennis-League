@@ -1,8 +1,7 @@
-﻿using Application.Interfaces;
-using Application.Repositories;
+﻿using Application.Repositories.Interfaces;
 using Communication.DTOs.Ranking;
 
-namespace Application.Services;
+namespace Application.Repositories;
 
 public class RankingHttpRepository : BaseHttpRepository, IRankingHttpRepository
 {

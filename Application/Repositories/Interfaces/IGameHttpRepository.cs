@@ -1,7 +1,7 @@
 ﻿using Communication.DTOs.Games;
 using Persistance.Models;
 
-namespace Application.Interfaces;
+namespace Application.Repositories.Interfaces;
 
 public interface IGameHttpRepository
 {
