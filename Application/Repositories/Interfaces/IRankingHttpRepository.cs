@@ -1,6 +1,6 @@
 ﻿using Communication.DTOs.Ranking;
 
-namespace Application.Interfaces;
+namespace Application.Repositories.Interfaces;
 
 public interface IRankingHttpRepository
 {

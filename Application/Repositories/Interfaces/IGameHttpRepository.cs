@@ -1,6 +1,6 @@
 ﻿using Communication.DTOs.Games;
 
-namespace Application.Interfaces;
+namespace Application.Repositories.Interfaces;
 
 public interface IGameHttpRepository
 {

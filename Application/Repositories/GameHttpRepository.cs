@@ -1,8 +1,8 @@
-﻿using Application.Interfaces;
-using Application.Repositories;
+﻿using Application.Repositories.Interfaces;
+using Communication;
 using Communication.DTOs.Games;
 
-namespace Application.Services;
+namespace Application.Repositories;
 
 public class GameHttpRepository : BaseHttpRepository, IGameHttpRepository
 {

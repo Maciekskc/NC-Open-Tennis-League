@@ -1,4 +1,6 @@
-﻿public static class ApiRoutes
+﻿namespace Communication;
+
+public static class ApiRoutes
 {
     public const string Base = "api";
 

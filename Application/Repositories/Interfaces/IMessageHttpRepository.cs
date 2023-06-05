@@ -1,6 +1,6 @@
 ﻿using Communication.DTOs.Message;
 
-namespace Application.Interfaces
+namespace Application.Repositories.Interfaces
 {
     public interface IMessageHttpRepository
     {

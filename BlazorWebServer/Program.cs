@@ -1,5 +1,5 @@
-using Application.Interfaces;
-using Application.Services;
+using Application.Repositories;
+using Application.Repositories.Interfaces;
 using BlazorWebServer.Areas.Identity;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;

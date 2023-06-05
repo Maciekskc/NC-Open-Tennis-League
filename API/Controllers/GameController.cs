@@ -1,4 +1,5 @@
-﻿using Infrastructure.Interfaces;
+﻿using Communication;
+using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Communication.DTOs.Games;
 
