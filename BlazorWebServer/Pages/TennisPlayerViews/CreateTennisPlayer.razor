@@ -24,7 +24,7 @@
     </EditForm>
 </div>
 @code {
-    private TennisPlayerDto playerDto = new TennisPlayerDto();
+    private CreateTennisPlayerRequest playerDto = new CreateTennisPlayerRequest();
     private string? errorMessage;
 
     private async Task CreatePlayer()
@@ -33,7 +33,7 @@
         {
             var createdPlayer = await TennisPlayerService.CreateAsync(playerDto);
             errorMessage = null;
-            playerDto = new TennisPlayerDto();
+            playerDto = new CreateTennisPlayerRequest();
             NavigationManager.NavigateTo("/", true);
         }
         catch (Exception ex)

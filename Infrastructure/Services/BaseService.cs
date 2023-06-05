@@ -1,8 +1,6 @@
 ﻿using Infrastructure.mappers;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Persistance;
-using Persistance.Models;
 
 namespace Infrastructure.Services
 {

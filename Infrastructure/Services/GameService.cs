@@ -11,9 +11,9 @@ public class GameService : BaseService, IGameService
     {
     }
 
-    public async Task<Game> CreateAsync(CreateGameDto gameDto)
+    public async Task<Game> CreateAsync(CreateGameRequest gameDto)
     {
-        var game = Mapper.CreateGameDtoToGame(gameDto);
+        var game = Mapper.CreateGameRequestToGame(gameDto);
         game.GameId = Guid.NewGuid();
         DbContext.Add(game);
 
@@ -23,8 +23,8 @@ public class GameService : BaseService, IGameService
         {
             GameId = game.GameId,
             Content = $"""
-            {challengingPlayer.Initials} from position {challengingPlayer.CurrentPosition} challenged {chellengedPlayer.Initials}.\n
-            On {game.MatchDate.ToString() ?? "<will be assigned later>"} they will fight for {chellengedPlayer.CurrentPosition} position in clasification. \n
+            {challengingPlayer.Initials} from position {challengingPlayer.CurrentPosition} challenged {chellengedPlayer.Initials}.
+            On {game.MatchDate.ToString() ?? "<will be assigned later>"} they will fight for {chellengedPlayer.CurrentPosition} position in clasification.
             Good luck!
             """
         };
@@ -39,34 +39,34 @@ public class GameService : BaseService, IGameService
         throw new NotImplementedException();
     }
 
-    public async Task<List<GameViewDto>> GetAllAsync() =>
+    public async Task<List<GetGameResponse>> GetAllAsync() =>
        await DbContext.Games
         .Include(g => g.ChallengedPlayer)
         .Include(g => g.ChallengingPlayer)
-        .Select(game => Mapper.GameToGameViewGameDto(game)).ToListAsync();
+        .Select(game => Mapper.GameToGetGameResponse(game)).ToListAsync();
 
-    public async Task<GameViewDto?> GetViewModelByIdAsync(Guid id)
+    public async Task<GetGameResponse?> GetViewModelByIdAsync(Guid id)
     {
         var game = await DbContext.Games.FindAsync(id);
         if (game != null)
-            return Mapper.GameToGameViewGameDto(game);
+            return Mapper.GameToGetGameResponse(game);
         return null;
     }
 
     public async Task<Game?> GetByIdAsync(Guid id) => 
         await DbContext.Games.FindAsync(id);
 
-    public Task UpdateAsync(Guid id, GameViewDto gameDto)
+    public Task UpdateAsync(Guid id, GetGameResponse gameDto)
     {
         throw new NotImplementedException();
     }
 
-    public Task<List<GameViewDto>> GetAllPlayerGamesAsync(Guid PlayerId)
+    public Task<List<GetGameResponse>> GetAllPlayerGamesAsync(Guid PlayerId)
     {
         throw new NotImplementedException();
     }
 
-    public async Task FinalizeGameAsync(FinalizeGameDto finalizeGameDto)
+    public async Task FinalizeGameAsync(FinalizeGameRequest finalizeGameDto)
     {
         // Retrieve the game object from the database using the game ID
         var game = await DbContext.Games
@@ -196,7 +196,7 @@ public class GameService : BaseService, IGameService
     /// </summary>
     /// <param name="finalizeGameDto"></param>
     /// <param name="game"></param>
-    private static void EvaluateMatchResult(FinalizeGameDto finalizeGameDto, Game? game)
+    private static void EvaluateMatchResult(FinalizeGameRequest finalizeGameDto, Game? game)
     {
         if (finalizeGameDto.ChallengingPlayerWonGemsCount > finalizeGameDto.ChallengedPlayerWonGemsCount)
         {

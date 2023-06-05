@@ -1,7 +1,6 @@
 ﻿using Application.Interfaces;
 using Application.Repositories;
 using Communication.DTOs.Games;
-using Persistance.Models;
 
 namespace Application.Services;
 
@@ -11,37 +10,37 @@ public class GameHttpRepository : BaseHttpRepository, IGameHttpRepository
     {
     }
 
-    public async Task<Game> CreateAsync(CreateGameDto gameDto)
+    public async Task<GetGameResponse> CreateAsync(CreateGameRequest gameDto)
     {
-        return await PostAsync<CreateGameDto,Game>(ApiRoutes.Games.Create, gameDto);
+        return await PostAsync<CreateGameRequest, GetGameResponse>(ApiRoutes.Games.Create, gameDto);
     }
 
-    public async Task<List<GameViewDto>> GetAllAsync()
+    public async Task<List<GetGameResponse>> GetAllAsync()
     {
-        return await GetAsync<List<GameViewDto>>(ApiRoutes.Games.GetAll);
+        return await GetAsync<List<GetGameResponse>>(ApiRoutes.Games.GetAll);
     }
 
-    public async Task<GameViewDto?> GetViewModelByIdAsync(Guid id)
+    public async Task<GetGameResponse?> GetViewModelByIdAsync(Guid id)
     {
-        return await GetAsync<GameViewDto?>(ApiRouteHelper.ReplaceId(ApiRoutes.Games.GetViewModelById, id.ToString()));
+        return await GetAsync<GetGameResponse?>(ApiRouteHelper.ReplaceId(ApiRoutes.Games.GetViewModelById, id.ToString()));
     }
 
-    public async Task<Game?> GetByIdAsync(Guid id)
+    public async Task<GetGameResponse?> GetByIdAsync(Guid id)
     {
-        return await GetAsync<Game?>(ApiRouteHelper.ReplaceId(ApiRoutes.Games.GetById, id.ToString()));
+        return await GetAsync<GetGameResponse?>(ApiRouteHelper.ReplaceId(ApiRoutes.Games.GetById, id.ToString()));
     }
 
-    public async Task FinalizeGameAsync(FinalizeGameDto finalizeGameDto)
+    public async Task FinalizeGameAsync(FinalizeGameRequest finalizeGameDto)
     {
-        await PostAsync<FinalizeGameDto>(ApiRoutes.Games.Finalize, finalizeGameDto);
+        await PostAsync<FinalizeGameRequest>(ApiRoutes.Games.Finalize, finalizeGameDto);
     }
 
-    public Task<List<GameViewDto>> GetAllPlayerGamesAsync(Guid PlayerId)
+    public Task<List<GetGameResponse>> GetAllPlayerGamesAsync(Guid PlayerId)
     {
         throw new NotImplementedException();
     }
 
-    public Task UpdateAsync(Guid id, GameViewDto gameDto)
+    public Task UpdateAsync(Guid id, UpdateGameRequest gameDto)
     {
         throw new NotImplementedException();
     }

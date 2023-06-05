@@ -16,10 +16,10 @@ namespace API.Controllers
         }
 
         [HttpPost(ApiRoutes.TennisPlayers.Create)]
-        public async Task<IActionResult> Create(TennisPlayerDto playerDto)
+        public async Task<IActionResult> Create(CreateTennisPlayerRequest playerDto)
         {
             var createdPlayer = await _tennisPlayerService.CreateAsync(playerDto);
-            return CreatedAtAction(nameof(GetById), new { id = createdPlayer.Id }, createdPlayer);
+            return CreatedAtAction(nameof(GetById), new { id = createdPlayer.PlayerId }, createdPlayer);
         }
 
         [HttpGet(ApiRoutes.TennisPlayers.GetById)]
@@ -40,7 +40,7 @@ namespace API.Controllers
         }
 
         [HttpPut(ApiRoutes.TennisPlayers.Update)]
-        public async Task<IActionResult> Update(Guid id, TennisPlayerDto playerDto)
+        public async Task<IActionResult> Update(Guid id, UpdateTennisPlayerRequest playerDto)
         {
             await _tennisPlayerService.UpdateAsync(id, playerDto);
             return NoContent();

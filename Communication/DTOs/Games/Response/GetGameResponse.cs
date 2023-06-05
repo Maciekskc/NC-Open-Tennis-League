@@ -1,6 +1,6 @@
 ﻿namespace Communication.DTOs.Games;
 
-public record GameViewDto
+public record GetGameResponse
 {
     public Guid GameId { get; set; }
 

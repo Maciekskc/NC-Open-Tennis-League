@@ -47,9 +47,9 @@
     </EditForm>
 </div>
 @code {
-    private CreateGameDto gameDto = new CreateGameDto();
+    private CreateGameRequest gameDto = new CreateGameRequest();
     private string? errorMessage;
-    private List<TennisPlayerDto> players = new List<TennisPlayerDto>();
+    private List<GetTennisPlayerResponse> players = new List<GetTennisPlayerResponse>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -62,7 +62,7 @@
         {
             var createdGame = await GameService.CreateAsync(gameDto);
             errorMessage = null;
-            gameDto = new CreateGameDto();
+            gameDto = new CreateGameRequest();
             NavigationManager.NavigateTo("/games", true);
         }
         catch (Exception ex)

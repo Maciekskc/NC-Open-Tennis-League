@@ -5,10 +5,10 @@ namespace Application.Interfaces
 {
     public interface ITennisPlayerHttpRepository
     {
-        Task<TennisPlayer> CreateAsync(TennisPlayerDto playerDto);
-        Task<TennisPlayerDto?> GetByIdAsync(string id);
-        Task<List<TennisPlayerDto>> GetAllAsync();
-        Task UpdateAsync(Guid id, TennisPlayerDto playerDto);
+        Task<GetTennisPlayerResponse> CreateAsync(CreateTennisPlayerRequest playerDto);
+        Task<GetTennisPlayerResponse?> GetByIdAsync(string id);
+        Task<List<GetTennisPlayerResponse>> GetAllAsync();
+        Task UpdateAsync(Guid id, UpdateTennisPlayerRequest playerDto);
         Task RemoveAsync(Guid id);
     }
 }

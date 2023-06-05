@@ -1,7 +1,6 @@
 ﻿using Application.Interfaces;
 using Application.Repositories;
 using Communication.DTOs.TennisPlayer;
-using Persistance.Models;
 
 namespace Application.Services
 {
@@ -11,24 +10,24 @@ namespace Application.Services
         {
         }
 
-        public async Task<TennisPlayer> CreateAsync(TennisPlayerDto playerDto)
+        public async Task<GetTennisPlayerResponse> CreateAsync(CreateTennisPlayerRequest playerDto)
         {
-            return await PostAsync<TennisPlayerDto,TennisPlayer>(ApiRoutes.TennisPlayers.Create, playerDto); 
+            return await PostAsync<CreateTennisPlayerRequest, GetTennisPlayerResponse>(ApiRoutes.TennisPlayers.Create, playerDto); 
         }
 
-        public async Task<TennisPlayerDto?> GetByIdAsync(string id)
+        public async Task<GetTennisPlayerResponse?> GetByIdAsync(string id)
         {
             if (string.IsNullOrEmpty(id)) return null;
             var argument = ApiRouteHelper.ReplaceId(ApiRoutes.TennisPlayers.GetById, id);
-            return await GetAsync<TennisPlayerDto?>(argument);
+            return await GetAsync<GetTennisPlayerResponse?>(argument);
         }
 
-        public async Task<List<TennisPlayerDto>> GetAllAsync()
+        public async Task<List<GetTennisPlayerResponse>> GetAllAsync()
         {
-            return await GetAsync<List<TennisPlayerDto>>(ApiRoutes.TennisPlayers.GetAll);
+            return await GetAsync<List<GetTennisPlayerResponse>>(ApiRoutes.TennisPlayers.GetAll);
         }
 
-        public async Task UpdateAsync(Guid id, TennisPlayerDto playerDto)
+        public async Task UpdateAsync(Guid id, UpdateTennisPlayerRequest playerDto)
         {
             await PutAsync(ApiRouteHelper.ReplaceId(ApiRoutes.TennisPlayers.Update, playerDto.PlayerId.ToString()), playerDto);
         }

@@ -4,5 +4,5 @@ namespace Application.Interfaces;
 
 public interface IRankingHttpRepository
 {
-    Task<List<RankingRecord>> GetRanking();
+    Task<List<RankingRecordResponse>> GetRanking();
 }

@@ -6,11 +6,11 @@ namespace Infrastructure.Interfaces
 {
     public interface ITennisPlayerService
     {
-        Task<TennisPlayer> CreateAsync(TennisPlayerDto playerDto);
-        Task<TennisPlayerDto?> GetByIdAsync(Guid id);
-        Task<List<TennisPlayerDto>> GetAllAsync();
-        Task UpdateAsync(Guid id, TennisPlayerDto playerDto);
+        Task<GetTennisPlayerResponse> CreateAsync(CreateTennisPlayerRequest playerDto);
+        Task<GetTennisPlayerResponse?> GetByIdAsync(Guid id);
+        Task<List<GetTennisPlayerResponse>> GetAllAsync();
+        Task UpdateAsync(Guid id, UpdateTennisPlayerRequest playerDto);
         Task DeleteAsync(Guid id);
-        Task<List<RankingRecord>> GetRanking();
+        Task<List<RankingRecordResponse>> GetRanking();
     }
 }

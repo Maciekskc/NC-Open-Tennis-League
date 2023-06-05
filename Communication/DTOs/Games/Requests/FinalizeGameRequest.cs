@@ -2,7 +2,7 @@
 
 namespace Communication.DTOs.Games
 {
-    public class FinalizeGameDto
+    public class FinalizeGameRequest
     {
         [Required]
         public Guid GameId { get; set; }

@@ -10,8 +10,8 @@ public class RankingHttpRepository : BaseHttpRepository, IRankingHttpRepository
     {
     }
 
-    public async Task<List<RankingRecord>> GetRanking()
+    public async Task<List<RankingRecordResponse>> GetRanking()
     {
-        return await GetAsync<List<RankingRecord>> (ApiRoutes.TennisPlayers.GetRanking);
+        return await GetAsync<List<RankingRecordResponse>> (ApiRoutes.TennisPlayers.GetRanking);
     }
 }

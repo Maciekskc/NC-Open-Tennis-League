@@ -1,6 +1,6 @@
-﻿namespace Communication.DTOs.Ranking;
+﻿namespace Communication.DTOs.TennisPlayer;
 
-public class RankingRecord
+public record GetTennisPlayerResponse
 {
     public Guid PlayerId { get; set; }
     public string Initials { get; set; }

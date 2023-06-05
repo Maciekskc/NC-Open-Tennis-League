@@ -1,6 +1,6 @@
 ﻿namespace Communication.DTOs.Games;
 
-public record CreateGameDto
+public record UpdateGameRequest
 {
     public Guid ChallengingPlayerId { get; set; }
 

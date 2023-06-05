@@ -5,12 +5,12 @@ namespace Infrastructure.Interfaces;
 
 public interface IGameService
 {
-    Task<Game> CreateAsync(CreateGameDto gameDto); 
-    Task FinalizeGameAsync(FinalizeGameDto gameDto);
+    Task<Game> CreateAsync(CreateGameRequest gameDto); 
+    Task FinalizeGameAsync(FinalizeGameRequest gameDto);
     Task<Game?> GetByIdAsync(Guid id);
-    Task<GameViewDto?> GetViewModelByIdAsync(Guid id);
-    Task<List<GameViewDto>> GetAllPlayerGamesAsync(Guid PlayerId);
-    Task<List<GameViewDto>> GetAllAsync();
-    Task UpdateAsync(Guid id, GameViewDto gameDto);
+    Task<GetGameResponse?> GetViewModelByIdAsync(Guid id);
+    Task<List<GetGameResponse>> GetAllPlayerGamesAsync(Guid PlayerId);
+    Task<List<GetGameResponse>> GetAllAsync();
+    Task UpdateAsync(Guid id, GetGameResponse gameDto);
     Task DeleteAsync(Guid id);
 }

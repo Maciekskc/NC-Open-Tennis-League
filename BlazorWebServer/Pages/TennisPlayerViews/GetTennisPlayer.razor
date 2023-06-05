@@ -62,11 +62,11 @@
     [Parameter]
     public string PlayerId { get; set; }
 
-    public TennisPlayerDto TennisPlayer { get; set; } = null;
+    public GetTennisPlayerResponse TennisPlayer { get; set; } = null;
 
-    public List<GameViewDto> Games = new List<GameViewDto>()
+    public List<GetGameResponse> Games = new List<GetGameResponse>()
     {
-        new GameViewDto
+        new GetGameResponse
         {
             GameId = Guid.NewGuid(),
             ChallengingPlayerName = "Challenging Player",
@@ -78,7 +78,7 @@
             ChallengingPlayerWonGemsCount = 0,
             ChallengedPlayerWonGemsCount = 0
         },
-        new GameViewDto
+        new GetGameResponse
         {
             GameId = Guid.NewGuid(),
             ChallengingPlayerName = "Oponent",

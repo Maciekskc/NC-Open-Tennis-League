@@ -2,6 +2,7 @@
 @inject NavigationManager NavigationManager
 
 @page "/players/{PlayerId}/update"
+@using Application.Mappers;
 @using Communication.DTOs.TennisPlayer;
 @using Application.Interfaces;
 
@@ -28,9 +29,13 @@
 
     private string errorMessage;
 
-    public TennisPlayerDto TennisPlayer { get; set; } = new TennisPlayerDto();
+    public UpdateTennisPlayerRequest TennisPlayer { get; set; } = new UpdateTennisPlayerRequest();
+    public FormMapperlyMapper Mapper = new FormMapperlyMapper();
 
-    protected override async Task OnInitializedAsync() => TennisPlayer = await TennisPlayerService.GetByIdAsync(PlayerId);
+    protected override async Task OnInitializedAsync()
+    {
+        TennisPlayer = Mapper.GetTennisPlayerResponseToUpdateTennisPlayerRequest(await TennisPlayerService.GetByIdAsync(PlayerId));
+    }
 
     private async Task UpdatePlayer()
     {
