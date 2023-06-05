@@ -1,4 +1,5 @@
 ﻿using Application.Repositories.Interfaces;
+using Communication;
 using Communication.DTOs.Message;
 
 namespace Application.Repositories;
