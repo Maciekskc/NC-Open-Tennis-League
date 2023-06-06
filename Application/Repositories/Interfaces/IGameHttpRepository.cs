@@ -1,13 +1,12 @@
 ﻿using Communication.DTOs.Games;
-using Persistance.Models;
 
-namespace Infrastructure.Interfaces;
+namespace Application.Repositories.Interfaces;
 
-public interface IGameService
+public interface IGameHttpRepository
 {
     Task<GetGameResponse> CreateAsync(CreateGameRequest gameDto); 
     Task FinalizeGameAsync(FinalizeGameRequest gameDto);
-    Task<Game?> GetByIdAsync(Guid id);
+    Task<GetGameResponse?> GetByIdAsync(Guid id);
     Task<GetGameResponse?> GetViewModelByIdAsync(Guid id);
     Task<List<GetGameResponse>> GetAllPlayerGamesAsync(Guid PlayerId);
     Task<List<GetGameResponse>> GetAllAsync();

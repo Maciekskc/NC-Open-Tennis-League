@@ -1,5 +1,5 @@
-﻿using Infrastructure.DTOs.Ranking;
-using Infrastructure.DTOs.TennisPlayer;
+﻿using Communication.DTOs.Ranking;
+using Communication.DTOs.TennisPlayer;
 using Persistance.Models;
 using Riok.Mapperly.Abstractions;
 
@@ -7,17 +7,18 @@ namespace Infrastructure.mappers
 {
     public partial class CustomMaperlyMapper
     {
-        [MapProperty(nameof(TennisPlayer.Id), nameof(TennisPlayerDto.PlayerId))]
-        [MapProperty(nameof(TennisPlayer.CurrentPosition), nameof(TennisPlayerDto.Position))]
-        public partial TennisPlayerDto TennisPlayerToTennisPlayerDto(TennisPlayer tennisPlayer);
+        public partial TennisPlayer CreateTennisPlayerRequestToTennisPlayer(CreateTennisPlayerRequest tennisPlayer);
 
-        
-        [MapProperty(nameof(TennisPlayerDto.PlayerId), nameof(TennisPlayer.Id))]
-        [MapProperty(nameof(TennisPlayerDto.Position), nameof(TennisPlayer.CurrentPosition))]
-        public partial TennisPlayer TennisPlayerDtoToTennisPlayer(TennisPlayerDto tennisPlayer);
 
-        [MapProperty(nameof(TennisPlayer.Id),  nameof(RankingRecord.PlayerId))]
-        [MapProperty(nameof(TennisPlayer.CurrentPosition),  nameof(RankingRecord.Position))]
-        public partial RankingRecord TennisPlayerToRankingRecord(TennisPlayer tennisPlayer);
+        [MapProperty(nameof(UpdateTennisPlayerRequest.PlayerId), nameof(TennisPlayer.Id))]
+        public partial TennisPlayer UptadeTennisPlayerRequestToTennisPlayer(UpdateTennisPlayerRequest tennisPlayer);
+
+        [MapProperty(nameof(TennisPlayer.Id), nameof(GetTennisPlayerResponse.PlayerId))]
+        [MapProperty(nameof(TennisPlayer.CurrentPosition), nameof(GetTennisPlayerResponse.Position))]
+        public partial GetTennisPlayerResponse TennisPlayerToGetTennisPlayerResponse(TennisPlayer tennisPlayer);
+
+        [MapProperty(nameof(TennisPlayer.Id),  nameof(RankingRecordResponse.PlayerId))]
+        [MapProperty(nameof(TennisPlayer.CurrentPosition),  nameof(RankingRecordResponse.Position))]
+        public partial RankingRecordResponse TennisPlayerToRankingRecord(TennisPlayer tennisPlayer);
     }
 }

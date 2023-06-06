@@ -1,6 +1,6 @@
-﻿@using Application.DTOs.Ranking;
-@using Application.Interfaces;
-@inject ITennisPlayerService TennisPlayerService
+﻿@using Communication.DTOs.Ranking;
+@using Application.Repositories.Interfaces
+@inject ITennisPlayerHttpRepository TennisPlayerService
 @inject NavigationManager NavigationManager
 
 <div class="m-4">
@@ -41,10 +41,10 @@
 
 @code {
     [Parameter]
-    public List<RankingRecord> PlayerList { get; set; }
+    public List<RankingRecordResponse> PlayerList { get; set; }
 
     [Parameter]
-    public EventCallback<List<RankingRecord>> PlayerListChanged { get; set; }
+    public EventCallback<List<RankingRecordResponse>> PlayerListChanged { get; set; }
 
     private void RemovePlayer(Guid id) { }
     private void ChallengePlayer(Guid id) { }

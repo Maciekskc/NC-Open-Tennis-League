@@ -1,9 +1,10 @@
-﻿@inject ITennisPlayerService TennisPlayerService
+﻿@inject ITennisPlayerHttpRepository TennisPlayerService
 @inject NavigationManager NavigationManager
 
 @page "/players/{PlayerId}/update"
-@using Application.DTOs.TennisPlayer;
-@using Application.Interfaces;
+@using Application.Mappers;
+@using Communication.DTOs.TennisPlayer;
+@using Application.Repositories.Interfaces
 
 <div class="page-content mt-5">
     @if (errorMessage != null)
@@ -28,9 +29,13 @@
 
     private string errorMessage;
 
-    public TennisPlayerDto TennisPlayer { get; set; } = new TennisPlayerDto();
+    public UpdateTennisPlayerRequest TennisPlayer { get; set; } = new UpdateTennisPlayerRequest();
+    public FormMapperlyMapper Mapper = new FormMapperlyMapper();
 
-    protected override async Task OnInitializedAsync() => TennisPlayer = await TennisPlayerService.GetByIdAsync(Guid.Parse(PlayerId));
+    protected override async Task OnInitializedAsync()
+    {
+        TennisPlayer = Mapper.GetTennisPlayerResponseToUpdateTennisPlayerRequest(await TennisPlayerService.GetByIdAsync(PlayerId));
+    }
 
     private async Task UpdatePlayer()
     {

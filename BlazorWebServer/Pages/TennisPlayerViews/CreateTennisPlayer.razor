@@ -1,8 +1,7 @@
 ﻿@page "/create-player"
-@using Application.DTOs.TennisPlayer;
-@using Application.Interfaces;
-@using Application.Services;
-@inject ITennisPlayerService TennisPlayerService
+@using Communication.DTOs.TennisPlayer;
+@using Application.Repositories.Interfaces
+@inject ITennisPlayerHttpRepository TennisPlayerService
 @inject NavigationManager NavigationManager
 
 <div class="page-content mt-5">
@@ -24,7 +23,7 @@
     </EditForm>
 </div>
 @code {
-    private TennisPlayerDto playerDto = new TennisPlayerDto();
+    private CreateTennisPlayerRequest playerDto = new CreateTennisPlayerRequest();
     private string? errorMessage;
 
     private async Task CreatePlayer()
@@ -33,8 +32,8 @@
         {
             var createdPlayer = await TennisPlayerService.CreateAsync(playerDto);
             errorMessage = null;
-            playerDto = new TennisPlayerDto();
-            NavigationManager.NavigateTo("/", true);
+            playerDto = new CreateTennisPlayerRequest();
+            NavigationManager.NavigateTo("/ranking", true);
         }
         catch (Exception ex)
         {

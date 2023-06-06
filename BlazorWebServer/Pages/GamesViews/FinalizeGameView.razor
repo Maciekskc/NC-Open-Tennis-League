@@ -1,8 +1,7 @@
 ﻿@page "/finalize-game/{GameId}"
-@using Application.DTOs.Games
-@using Application.Interfaces
-@using Application.Services
-@inject IGameService GameService
+@using Communication.DTOs.Games
+@using Application.Repositories.Interfaces
+@inject IGameHttpRepository GameService
 @inject NavigationManager NavigationManager
 
 <div class="page-content mt-5">
@@ -62,7 +61,7 @@
         finalizeGameDto.GameId = gameId;
     }
 
-    private FinalizeGameDto finalizeGameDto = new FinalizeGameDto();
+    private FinalizeGameRequest finalizeGameDto = new FinalizeGameRequest();
     private string? errorMessage;
 
     private async Task FinalizeGame()

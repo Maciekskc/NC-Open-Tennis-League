@@ -1,4 +1,4 @@
-﻿using Infrastructure.DTOs.Message;
+﻿using Communication.DTOs.Message;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Persistance.Models;

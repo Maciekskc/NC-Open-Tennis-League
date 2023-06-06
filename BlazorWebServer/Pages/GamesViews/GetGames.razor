@@ -1,8 +1,7 @@
 ﻿@page "/games"
-@using Application.DTOs.Games
-@using Application.Interfaces;
-@using Application.Services;
-@inject IGameService GameService
+@using Communication.DTOs.Games
+@using Application.Repositories.Interfaces
+@inject IGameHttpRepository GameService
 @inject NavigationManager NavigationManager
 
 
@@ -13,7 +12,7 @@
 </div>
 
 @code {
-    private List<GameViewDto> Games = new List<GameViewDto>();
+    private List<GetGameResponse> Games = new List<GetGameResponse>();
 
     protected override async Task OnInitializedAsync()
     {

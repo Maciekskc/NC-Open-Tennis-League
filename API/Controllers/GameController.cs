@@ -1,9 +1,7 @@
-﻿using Infrastructure.DTOs.Games;
+﻿using Communication;
 using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Communication.DTOs.Games;
 
 namespace API.Controllers
 {
@@ -19,14 +17,14 @@ namespace API.Controllers
         }
 
         [HttpPost(ApiRoutes.Games.Create)]
-        public async Task<IActionResult> Create(CreateGameDto gameDto)
+        public async Task<IActionResult> Create(CreateGameRequest gameDto)
         {
             var createdGame = await _gameService.CreateAsync(gameDto);
             return CreatedAtAction(nameof(GetById), new { id = createdGame.GameId }, createdGame);
         }
 
         [HttpPost(ApiRoutes.Games.Finalize)]
-        public async Task<IActionResult> Finalize(FinalizeGameDto gameDto)
+        public async Task<IActionResult> Finalize(FinalizeGameRequest gameDto)
         {
             await _gameService.FinalizeGameAsync(gameDto);
             return NoContent();
@@ -67,7 +65,7 @@ namespace API.Controllers
         }
 
         [HttpPut(ApiRoutes.Games.Update)]
-        public async Task<IActionResult> Update(Guid id, GameViewDto gameDto)
+        public async Task<IActionResult> Update(Guid id, UpdateGameRequest gameDto)
         {
             await _gameService.UpdateAsync(id, gameDto);
             return NoContent();

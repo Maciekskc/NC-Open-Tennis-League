@@ -1,10 +1,10 @@
-﻿@inject ITennisPlayerService TennisPlayerService
+﻿@inject ITennisPlayerHttpRepository TennisPlayerService
 @inject NavigationManager NavigationManager
 
 @page "/players/{PlayerId}"
-@using Application.DTOs.TennisPlayer;
-@using Application.DTOs.Games;
-@using Application.Interfaces;
+@using Communication.DTOs.TennisPlayer;
+@using Communication.DTOs.Games;
+@using Application.Repositories.Interfaces
 
 <div class="page-content mt-5 row">
     @if (TennisPlayer != null)
@@ -16,8 +16,8 @@
                     <h5 class="card-title">@TennisPlayer.Initials</h5>
                     <p class="card-text">Ranking Position: #@TennisPlayer.Position</p>
                     <div class="d-grid gap-2">
-                        <button disabled onclick="@(() => @RemovePlayer())" class="btn btn-primary" type="button">Delete</button>
-                        <button disabled onclick="@(() => NavigationManager.NavigateTo($"/players/{PlayerId}/update", true))" class="btn btn-secondary" type="button">Update</button>
+                        <button onclick="@(() => @RemovePlayer())" class="btn btn-primary" type="button">Delete</button>
+                        <button onclick="@(() => NavigationManager.NavigateTo($"/players/{PlayerId}/update", true))" class="btn btn-secondary" type="button">Update</button>
                     </div>
                 </div>
             </div>
@@ -62,11 +62,11 @@
     [Parameter]
     public string PlayerId { get; set; }
 
-    public TennisPlayerDto TennisPlayer { get; set; } = null;
+    public GetTennisPlayerResponse TennisPlayer { get; set; } = null;
 
-    public List<GameViewDto> Games = new List<GameViewDto>()
+    public List<GetGameResponse> Games = new List<GetGameResponse>()
     {
-        new GameViewDto
+        new GetGameResponse
         {
             GameId = Guid.NewGuid(),
             ChallengingPlayerName = "Challenging Player",
@@ -78,7 +78,7 @@
             ChallengingPlayerWonGemsCount = 0,
             ChallengedPlayerWonGemsCount = 0
         },
-        new GameViewDto
+        new GetGameResponse
         {
             GameId = Guid.NewGuid(),
             ChallengingPlayerName = "Oponent",
@@ -95,14 +95,14 @@
 
     protected override async Task OnParametersSetAsync()
     {
-        TennisPlayer = await TennisPlayerService.GetByIdAsync(Guid.Parse(PlayerId));
+        TennisPlayer = await TennisPlayerService.GetByIdAsync(PlayerId);
         StateHasChanged();
     }
 
     private async Task RemovePlayer()
     {
-        await TennisPlayerService.DeleteAsync(Guid.Parse(PlayerId));
-        NavigationManager.NavigateTo("/", true);
+        await TennisPlayerService.RemoveAsync(Guid.Parse(PlayerId));
+        NavigationManager.NavigateTo("/ranking", true);
     }
 
     private string GetMatchResultClass(bool isWinned)

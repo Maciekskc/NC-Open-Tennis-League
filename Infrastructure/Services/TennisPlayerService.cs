@@ -1,5 +1,5 @@
-﻿using Infrastructure.DTOs.Ranking;
-using Infrastructure.DTOs.TennisPlayer;
+﻿using Communication.DTOs.Ranking;
+using Communication.DTOs.TennisPlayer;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Persistance.Models;
@@ -12,9 +12,9 @@ namespace Infrastructure.Services
         {
         }
 
-        public async Task<TennisPlayer> CreateAsync(TennisPlayerDto playerDto)
+        public async Task<GetTennisPlayerResponse> CreateAsync(CreateTennisPlayerRequest playerDto)
         {
-            var player = Mapper.TennisPlayerDtoToTennisPlayer(playerDto);
+            var player = Mapper.CreateTennisPlayerRequestToTennisPlayer(playerDto);
 
             player.Id = Guid.NewGuid();
             player.CurrentPosition = DbContext.Players.Select(p => p.CurrentPosition).ToArray().Max() + 1;
@@ -22,19 +22,19 @@ namespace Infrastructure.Services
             await DbContext.Players.AddAsync(player);
             await DbContext.SaveChangesAsync();
 
-            return player;
+            return Mapper.TennisPlayerToGetTennisPlayerResponse(player);
         }
 
-        public async Task<TennisPlayerDto?> GetByIdAsync(Guid id) { 
+        public async Task<GetTennisPlayerResponse?> GetByIdAsync(Guid id) { 
             var player =  await DbContext.Players.FindAsync(id);
             if (player != null)
-                return Mapper.TennisPlayerToTennisPlayerDto(player);
+                return Mapper.TennisPlayerToGetTennisPlayerResponse(player);
             return null;
         }
 
-        public async Task<List<TennisPlayerDto>> GetAllAsync() => await DbContext.Players.Select(p => Mapper.TennisPlayerToTennisPlayerDto(p)).ToListAsync();
+        public async Task<List<GetTennisPlayerResponse>> GetAllAsync() => await DbContext.Players.Select(p => Mapper.TennisPlayerToGetTennisPlayerResponse(p)).ToListAsync();
 
-        public async Task UpdateAsync(Guid id, TennisPlayerDto playerDto)
+        public async Task UpdateAsync(Guid id, UpdateTennisPlayerRequest playerDto)
         {
             var player = await DbContext.Players.FindAsync(id);
 
@@ -57,11 +57,12 @@ namespace Infrastructure.Services
                 throw new ArgumentException("Player not found");
             }
 
+            // TODO: Soft delete 
             DbContext.Players.Remove(player);
             await DbContext.SaveChangesAsync();
         }
 
-        public async Task<List<RankingRecord>> GetRanking()
+        public async Task<List<RankingRecordResponse>> GetRanking()
         {
             var positions = await DbContext.Players.Select(p => Mapper.TennisPlayerToRankingRecord(p)).ToListAsync();
             positions.Sort((x, y) => x.Position - y.Position);

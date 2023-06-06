@@ -1,7 +1,7 @@
-﻿@using Application.DTOs.Games;
-@using Application.Interfaces;
+﻿@using Communication.DTOs.Games;
 @using System.Globalization;
-@inject IGameService GameService
+@using Application.Repositories.Interfaces
+@inject IGameHttpRepository GameService
 @inject NavigationManager NavigationManager
 
 <div class="row">
@@ -40,10 +40,10 @@
 
 @code {
     [Parameter]
-    public List<GameViewDto> GamesList { get; set; }
+    public List<GetGameResponse> GamesList { get; set; }
 
     [Parameter]
-    public EventCallback<List<GameViewDto>> GamesListChanged { get; set; }
+    public EventCallback<List<GetGameResponse>> GamesListChanged { get; set; }
 
     private async Task OnMyPropertyChanged()
     {
@@ -56,7 +56,7 @@
         await GamesListChanged.InvokeAsync(GamesList);
     }
 
-    private string GameCardHeaderTextGenerator(GameViewDto game) =>
+    private string GameCardHeaderTextGenerator(GetGameResponse game) =>
         game.MatchDate != null ? $"Match date: {FormatDate(game.MatchDate.Value)}" : $"Challange date: {FormatDate(game.ChallengeDate)}";
 
     private string IsChallangeWonStylePicker(bool? gameResult)
@@ -66,7 +66,7 @@
         return gameResult.Value ? "winner" : "loser";
     }
 
-    private string GetMatchResultText(GameViewDto game) => 
+    private string GetMatchResultText(GetGameResponse game) => 
         game.Win != null ? $"{game.ChallengingPlayerWonGemsCount} : {game.ChallengedPlayerWonGemsCount}" : "VS";
 
     private string FormatDate(DateTime dateTime) => dateTime.ToString("dd-MM-yyyy, hh:mm", CultureInfo.InvariantCulture);

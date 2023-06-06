@@ -1,8 +1,8 @@
 ﻿using Communication.DTOs.Message;
 
-namespace Infrastructure.Interfaces
+namespace Application.Repositories.Interfaces
 {
-    public interface IMessageService
+    public interface IMessageHttpRepository
     {
         Task<List<RankingUpdateMessage>> GetMessages();
     }
