@@ -11,7 +11,7 @@ public class GameService : BaseService, IGameService
     {
     }
 
-    public async Task<Game> CreateAsync(CreateGameRequest gameDto)
+    public async Task<GetGameResponse> CreateAsync(CreateGameRequest gameDto)
     {
         var game = Mapper.CreateGameRequestToGame(gameDto);
         game.GameId = Guid.NewGuid();
@@ -31,7 +31,7 @@ public class GameService : BaseService, IGameService
         DbContext.Add(message);
 
         await DbContext.SaveChangesAsync();
-        return await DbContext.Games.FindAsync(game.GameId);
+        return await GetViewModelByIdAsync(game.GameId);
     }
 
     public Task DeleteAsync(Guid id)
@@ -53,10 +53,9 @@ public class GameService : BaseService, IGameService
         return null;
     }
 
-    public async Task<Game?> GetByIdAsync(Guid id) => 
-        await DbContext.Games.FindAsync(id);
+    public async Task<Game?> GetByIdAsync(Guid id) => await DbContext.Games.FindAsync(id);
 
-    public Task UpdateAsync(Guid id, GetGameResponse gameDto)
+    public Task UpdateAsync(Guid id, UpdateGameRequest gameDto)
     {
         throw new NotImplementedException();
     }

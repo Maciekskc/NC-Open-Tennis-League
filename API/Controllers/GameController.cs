@@ -65,7 +65,7 @@ namespace API.Controllers
         }
 
         [HttpPut(ApiRoutes.Games.Update)]
-        public async Task<IActionResult> Update(Guid id, GetGameResponse gameDto)
+        public async Task<IActionResult> Update(Guid id, UpdateGameRequest gameDto)
         {
             await _gameService.UpdateAsync(id, gameDto);
             return NoContent();
