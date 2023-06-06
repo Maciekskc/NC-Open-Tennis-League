@@ -102,7 +102,7 @@
     private async Task RemovePlayer()
     {
         await TennisPlayerService.RemoveAsync(Guid.Parse(PlayerId));
-        NavigationManager.NavigateTo("/", true);
+        NavigationManager.NavigateTo("/ranking", true);
     }
 
     private string GetMatchResultClass(bool isWinned)
