@@ -17,7 +17,7 @@ namespace Infrastructure.Services
             var player = Mapper.CreateTennisPlayerRequestToTennisPlayer(playerDto);
 
             player.Id = Guid.NewGuid();
-            player.CurrentPosition = DbContext.Players.Select(p => p.CurrentPosition).ToArray().Max() + 1;
+            player.CurrentPosition = DbContext.Players.Any() ? DbContext.Players.Select(p => p.CurrentPosition).ToArray().Max() + 1 : 1;
 
             await DbContext.Players.AddAsync(player);
             await DbContext.SaveChangesAsync();
