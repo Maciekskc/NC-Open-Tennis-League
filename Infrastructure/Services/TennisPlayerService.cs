@@ -68,6 +68,32 @@ namespace Infrastructure.Services
             positions.Sort((x, y) => x.Position - y.Position);
             return positions;
         }
+
+        public async Task DeactivatePlayerAsync(Guid id)
+        {
+            var player = await DbContext.Players.FindAsync(id);
+
+            if (player == null)
+            {
+                throw new ArgumentException("Player not found");
+            }
+
+            player.IsActive = false;
+            await DbContext.SaveChangesAsync();
+        }
+
+        public async Task ActivatePlayerAsync(Guid id)
+        {
+            var player = await DbContext.Players.FindAsync(id);
+
+            if (player == null)
+            {
+                throw new ArgumentException("Player not found");
+            }
+
+            player.IsActive = true;
+            await DbContext.SaveChangesAsync();
+        }
     }
 
 }
