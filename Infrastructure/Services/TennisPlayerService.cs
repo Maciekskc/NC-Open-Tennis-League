@@ -2,7 +2,6 @@
 using Communication.DTOs.TennisPlayer;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Persistance.Models;
 
 namespace Infrastructure.Services
 {

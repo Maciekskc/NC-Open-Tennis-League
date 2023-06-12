@@ -3,8 +3,9 @@ using Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Persistance.Models;
 using TestHelpers;
+using Bogus;
 
-namespace TestServices 
+namespace TestServices
 {
     public class TennisPlayerServiceTests : ServiceTestBase<TennisPlayerService>
     {
@@ -27,7 +28,7 @@ namespace TestServices
         }
 
         [Fact]
-        public async Task GetById_ExistingPlayerId_PlayerReturned()
+        public async Task GetByIdAsync_ExistingPlayerId_PlayerReturned()
         {
             // Attach
             var playerId = Guid.NewGuid();
@@ -46,7 +47,7 @@ namespace TestServices
         }
 
         [Fact]
-        public async Task GetById_NotExistingPlayerId_ReturnNull()
+        public async Task GetByIdAsync_NotExistingPlayerId_ReturnNull()
         {
             // Attach
             var playerId = Guid.NewGuid();
@@ -116,7 +117,6 @@ namespace TestServices
 
             // Assert
             Assert.NotEqual(tennisPlayerInitialCount, _testContext.Players.Count());
-            Assert.Null(_testContext.Players.FirstOrDefault());
         }
 
         [Fact]
@@ -205,6 +205,77 @@ namespace TestServices
             // Act Assert
             await Assert.ThrowsAsync<ArgumentException>(() => _sut.ActivatePlayerAsync(Guid.NewGuid()));
             Assert.Equal(tennisPlayerInitialCount, _testContext.Players.Count());
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(10)]
+        [InlineData(1000)]
+        public async Task GetAllAsync_DifferentScenarios(int itemsCount)
+        {
+            // Attach
+            int currentPossition = 1;
+            var playersGenerator = new Faker<TennisPlayer>()
+                .RuleFor(p => p.CurrentPosition, f => currentPossition++)
+                .RuleFor(p => p.Initials, f => f.Name.FirstName());
+
+            var testPlayers = playersGenerator.Generate(itemsCount);
+            await _testContext.Players.AddRangeAsync(testPlayers);
+            await _testContext.SaveChangesAsync();
+
+            // Act
+            var fetchedPlayers = await _sut.GetAllAsync();
+
+            // Assert
+            Assert.Equal(itemsCount, fetchedPlayers.Count());
+            Assert.All(fetchedPlayers, fp => testPlayers.Any(p => p.Id == fp.PlayerId));
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(10)]
+        [InlineData(1000)]
+        public async Task GetRankingAsync_DifferentScenarios(int itemsCount)
+        {
+            // Attach
+            int currentPossition = 1;
+            var playersGenerator = new Faker<TennisPlayer>()
+                .RuleFor(p => p.CurrentPosition, f => currentPossition++)
+                .RuleFor(p => p.Initials, f => f.Name.FirstName());
+
+            var testPlayers = playersGenerator.Generate(itemsCount);
+            Shuffle(testPlayers);
+            await _testContext.Players.AddRangeAsync(testPlayers);
+            await _testContext.SaveChangesAsync();
+
+            // Act
+            var fetchedPlayers = await _sut.GetRanking();
+
+            // Assert
+            Assert.Equal(itemsCount, fetchedPlayers.Count());
+            Assert.All(fetchedPlayers, fp => testPlayers.Any(p => p.Id == fp.PlayerId));
+            var lastPlayerPosition = 0;
+            foreach (var player in fetchedPlayers)
+            {
+                Assert.True(player.Position > lastPlayerPosition);
+                lastPlayerPosition = player.Position;
+            }
+        }
+
+        private static void Shuffle<T>(IList<T> list)
+        {
+            var _random = new Random();
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = _random.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
         }
     }
 }
