@@ -1,13 +1,14 @@
 ﻿using Communication.DTOs.Message;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Persistance.Models;
 
 namespace Infrastructure.Services;
 
-public class MessageService : BaseService, IMessageService
+public class MessageService : BaseService<MessageService>, IMessageService
 {
-    public MessageService(IServiceProvider serviceProvider) : base(serviceProvider)
+    public MessageService(IServiceProvider serviceProvider, ILogger<MessageService> logger) : base(serviceProvider, logger)
     {
     }
 

@@ -2,13 +2,14 @@
 using Communication.DTOs.TennisPlayer;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Persistance.Models;
 
 namespace Infrastructure.Services
 {
-    public class TennisPlayerService : BaseService, ITennisPlayerService
+    public class TennisPlayerService : BaseService<TennisPlayerService>, ITennisPlayerService
     {
-        public TennisPlayerService(IServiceProvider serviceProvider) : base(serviceProvider)
+        public TennisPlayerService(IServiceProvider serviceProvider, ILogger<TennisPlayerService> logger) : base(serviceProvider, logger)
         {
         }
 
@@ -65,9 +66,9 @@ namespace Infrastructure.Services
         public async Task<List<RankingRecordResponse>> GetRanking()
         {
             var positions = await DbContext.Players.Select(p => Mapper.TennisPlayerToRankingRecord(p)).ToListAsync();
+            Logger.LogInformation("Fetched {playerCount} players", positions.Count);
             positions.Sort((x, y) => x.Position - y.Position);
             return positions;
         }
     }
-
 }

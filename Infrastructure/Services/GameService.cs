@@ -1,13 +1,14 @@
 ﻿using Communication.DTOs.Games;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Persistance.Models;
 
 namespace Infrastructure.Services;
 
-public class GameService : BaseService, IGameService
+public class GameService : BaseService<GameService>, IGameService
 {
-    public GameService(IServiceProvider serviceProvider) : base(serviceProvider)
+    public GameService(IServiceProvider serviceProvider, ILogger<GameService> logger) : base(serviceProvider, logger)
     {
     }
 
