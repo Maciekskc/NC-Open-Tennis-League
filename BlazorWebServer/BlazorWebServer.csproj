@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
+    <ProjectReference Include="..\Communication\Communication.csproj" />
     <ProjectReference Include="..\Persistance\Persistance.csproj" />
   </ItemGroup>
 

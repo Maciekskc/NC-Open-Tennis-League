@@ -2,7 +2,6 @@
 using Communication.DTOs.TennisPlayer;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Persistance.Models;
 
 namespace Infrastructure.Services
 {
@@ -17,7 +16,7 @@ namespace Infrastructure.Services
             var player = Mapper.CreateTennisPlayerRequestToTennisPlayer(playerDto);
 
             player.Id = Guid.NewGuid();
-            player.CurrentPosition = DbContext.Players.Select(p => p.CurrentPosition).ToArray().Max() + 1;
+            player.CurrentPosition = DbContext.Players.Any() ? DbContext.Players.Select(p => p.CurrentPosition).ToArray().Max() + 1 : 1;
 
             await DbContext.Players.AddAsync(player);
             await DbContext.SaveChangesAsync();
@@ -67,6 +66,32 @@ namespace Infrastructure.Services
             var positions = await DbContext.Players.Select(p => Mapper.TennisPlayerToRankingRecord(p)).ToListAsync();
             positions.Sort((x, y) => x.Position - y.Position);
             return positions;
+        }
+
+        public async Task DeactivatePlayerAsync(Guid id)
+        {
+            var player = await DbContext.Players.FindAsync(id);
+
+            if (player == null)
+            {
+                throw new ArgumentException("Player not found");
+            }
+
+            player.IsActive = false;
+            await DbContext.SaveChangesAsync();
+        }
+
+        public async Task ActivatePlayerAsync(Guid id)
+        {
+            var player = await DbContext.Players.FindAsync(id);
+
+            if (player == null)
+            {
+                throw new ArgumentException("Player not found");
+            }
+
+            player.IsActive = true;
+            await DbContext.SaveChangesAsync();
         }
     }
 

@@ -4,9 +4,9 @@ using TestHelpers;
 
 namespace TestServices
 {
-    public class ExampleServiceTest : ServiceTestBase<BaseService>
+    public class BaseServiceTest : ServiceTestBase<BaseService>
     {
-        public ExampleServiceTest()
+        public BaseServiceTest()
         {
             _sut = new BaseService(_serviceCollection.BuildServiceProvider());
         }
