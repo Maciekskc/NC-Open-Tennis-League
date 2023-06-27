@@ -78,8 +78,6 @@ public class GameService : BaseService, IGameService
             throw new ArgumentException($"Game with ID {finalizeGameDto.GameId} not found.");
         }
 
-
-
         // Set the match date
         game.MatchDate = finalizeGameDto.MatchDate;
 
