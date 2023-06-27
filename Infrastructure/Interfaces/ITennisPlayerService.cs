@@ -1,6 +1,5 @@
 ﻿using Communication.DTOs.Ranking;
 using Communication.DTOs.TennisPlayer;
-using Persistance.Models;
 
 namespace Infrastructure.Interfaces
 {
@@ -12,5 +11,9 @@ namespace Infrastructure.Interfaces
         Task UpdateAsync(Guid id, UpdateTennisPlayerRequest playerDto);
         Task DeleteAsync(Guid id);
         Task<List<RankingRecordResponse>> GetRanking();
+
+        Task DeactivatePlayerAsync(Guid id);
+        Task ActivatePlayerAsync(Guid id);
+
     }
 }
