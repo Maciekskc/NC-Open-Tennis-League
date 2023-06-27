@@ -4,14 +4,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Persistance.Models;
 using TestHelpers;
 using Bogus;
+using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace TestServices
 {
     public class TennisPlayerServiceTests : ServiceTestBase<TennisPlayerService>
     {
+        private readonly Mock<ILogger<TennisPlayerService>> _logger = new Mock<ILogger<TennisPlayerService>>();
+
         public TennisPlayerServiceTests():base()
         {
-            _sut = new TennisPlayerService(_serviceCollection.BuildServiceProvider());
+            _sut = new TennisPlayerService(_serviceCollection.BuildServiceProvider(), _logger.Object);
         }
 
         [Fact]

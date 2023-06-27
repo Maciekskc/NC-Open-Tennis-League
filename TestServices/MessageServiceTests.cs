@@ -6,14 +6,18 @@ using Bogus;
 using Microsoft.EntityFrameworkCore;
 using Communication.DTOs.Games;
 using Communication.DTOs.Message;
+using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace TestServices
 {
     public class MessageServiceTests : ServiceTestBase<MessageService>
     {
+        private readonly Mock<ILogger<MessageService>> _logger = new Mock<ILogger<MessageService>>();
+
         public MessageServiceTests():base()
         {
-            _sut = new MessageService(_serviceCollection.BuildServiceProvider());
+            _sut = new MessageService(_serviceCollection.BuildServiceProvider(),_logger.Object);
         }
 
         [Theory]

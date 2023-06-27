@@ -5,14 +5,18 @@ using TestHelpers;
 using Bogus;
 using Microsoft.EntityFrameworkCore;
 using Communication.DTOs.Games;
+using Moq;
+using Microsoft.Extensions.Logging;
 
 namespace TestServices
 {
     public class GameServiceTests : ServiceTestBase<GameService>
     {
+        private readonly Mock<ILogger<GameService>> _logger = new Mock<ILogger<GameService>>();
+
         public GameServiceTests():base()
         {
-            _sut = new GameService(_serviceCollection.BuildServiceProvider());
+            _sut = new GameService(_serviceCollection.BuildServiceProvider(), _logger.Object);
             _testContext.Players.AddRangeAsync(GeneratePlayers(10)).GetAwaiter().GetResult();
             _testContext.SaveChangesAsync().GetAwaiter().GetResult();
         }
