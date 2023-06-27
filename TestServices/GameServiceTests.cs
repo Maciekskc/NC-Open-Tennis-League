@@ -213,8 +213,8 @@ namespace TestServices
 
             var generator = new Faker<Game>()
                 .RuleFor(p => p.GameId, f => Guid.NewGuid())
-                .RuleFor(p => p.ChallengedPlayer, f => players[f.Random.Number(players.Count)])
-                .RuleFor(p => p.ChallengingPlayer, f => players[f.Random.Number(players.Count)])
+                .RuleFor(p => p.ChallengedPlayer, f => f.PickRandom(players))
+                .RuleFor(p => p.ChallengingPlayer, f => f.PickRandom(players))
                 .RuleFor(p => p.ChallengeDate, f => f.Date.Past(1))
                 .RuleFor(p => p.MatchDate, f => f.Date.Future(1));
 
